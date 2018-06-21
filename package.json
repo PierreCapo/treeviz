@@ -1,7 +1,11 @@
 {
   "name": "treeviz",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
+  "repository": {
+  "type": "git",
+  "url": "git://github.com/PierreCapo/treeviz.git"
+},
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack --mode=production",
