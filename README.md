@@ -3,6 +3,7 @@
 
 This javascript module aims at providing an easy interface in order to represent tree diagrams on screen with the ability to handle dynamic data flows. The data format must be JSON.
 
+[Treeviz Demo](https://codepen.io/anon/pen/BPNvYL#anon-login)
   
 
 ## Installation
@@ -15,7 +16,7 @@ and then you can use it with :
 
 `import Treeviz from 'treeviz';`
 
-  Or download this repository and link the dist/index.js file in your page directly :
+Or download this repository and link the dist/index.js file in your page directly :
   
   `<script src="./dist/index.js><script>`
 
