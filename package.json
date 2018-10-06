@@ -3,27 +3,33 @@
   "version": "1.0.1",
   "description": "",
   "repository": {
-  "type": "git",
-  "url": "git://github.com/PierreCapo/treeviz.git"
-},
+    "type": "git",
+    "url": "git://github.com/PierreCapo/treeviz.git"
+  },
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack-dev-server  --mode=development",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint src/*.ts"
   },
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.4",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-typescript": "^7.1.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.4",
     "html-webpack-plugin": "^3.2.0",
-    "jest": "^23.1.0",
-    "webpack": "^4.12.0",
-    "webpack-cli": "^3.0.3",
-    "webpack-dev-server": "^3.1.4"
+    "jest": "^23.6.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "typescript": "^3.1.1",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
-    "d3": "^5.4.0"
+    "d3": "^5.7.0"
   },
   "jest": {
     "transform": {

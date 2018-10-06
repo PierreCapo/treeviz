@@ -1,0 +1,52 @@
+{
+  "compilerOptions": {
+    /* Build Options */
+    "target": "es6",
+    "lib": ["es2017", "esnext.asynciterable", "dom"],
+    "noEmit": true,
+    "pretty": true,
+    "sourceMap": true,
+
+    /* Strict Type-Checking Options */
+    "alwaysStrict": true,
+    /* Parse in strict mode and emit "use strict" for each source file. */
+    "noImplicitAny": true,
+    /* Raise error on expressions and declarations with an implied 'any' type. */
+    "noImplicitThis": true,
+    /* Raise error on 'this' expressions with an implied 'any' type. */
+    "strict": true,
+    /* Enable all strict type-checking options. */
+    "strictFunctionTypes": true,
+    /* Enable strict checking of function types. */
+    "strictNullChecks": true,
+    /* Enable strict null checks. */
+    "strictPropertyInitialization": true,
+    /* Enable strict checking of property initialization in classes. */
+
+    /* Additional Checks */
+    "noFallthroughCasesInSwitch": true,
+    /* Report errors for fallthrough cases in switch statement. */
+    "noImplicitReturns": true,
+    /* Report error when not all code paths in function return a value. */
+    "noUnusedLocals": true,
+    /* Report errors on unused locals. */
+    "noUnusedParameters": true,
+    /* Report errors on unused parameters. */
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "allowSyntheticDefaultImports": true,
+    /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
+
+    "baseUrl": "./",
+    "paths": {}
+  },
+  "exclude": [
+    "node_modules",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "**/__mocks__/*.ts",
+    "**/__mocks__/*.tsx"
+  ]
+}
