@@ -22,7 +22,7 @@ export function create({
   linkSettings = {
     colorField: null,
     widthField: null,
-    shape: "orthogonal",
+    shape: "quadraticBeziers",
   },
   horizontalLayout = true,
   zoomBehavior = false,
