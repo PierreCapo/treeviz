@@ -1,5 +1,3 @@
-import { ITreeConfig } from "./typings";
-
 interface ICoordinates {
   x: number;
   y: number;
@@ -8,7 +6,7 @@ interface ICoordinates {
 export const drawLinks = (
   s: ICoordinates,
   d: ICoordinates,
-  treeConfig: ITreeConfig
+  treeConfig: any
 ): string => {
   const {
     horizontalLayout,
