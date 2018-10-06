@@ -19,7 +19,11 @@ export function create({
     colorField: null,
     template: null,
   },
-  linkSettings = { colorField: null, widthField: null },
+  linkSettings = {
+    colorField: null,
+    widthField: null,
+    shape: "orthogonal",
+  },
   horizontalLayout = true,
   zoomBehavior = false,
 } = {}) {
@@ -35,7 +39,7 @@ export function create({
     horizontalLayout,
     zoomBehavior,
   };
-
+  console.log(settings);
   function draw(svg, source, treemap) {
     let i = 0;
     let duration = 400;
