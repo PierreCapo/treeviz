@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+
+    <h1>My First Heading</h1>
+    <p>My first paragraph.</p>
+    <div id="tree"></div>
+
+</body>
+<script>
+    var data_1 = [
+        { id: 1, text_1: "Chaos", text_2: "The Void", father: null },
+        { id: 2, text_1: "Tartarus", text_2: "The Abyss", father: 1 },
+        { id: 3, text_1: "Gaia", text_2: "The Earth", father: 1 },
+        { id: 4, text_1: "Eros", text_2: "Desire", father: 1 }
+    ];
+
+    var data_2 = [
+        { id: 1, text_1: "Chaos", text_2: "The Void", father: null },
+        { id: 2, text_1: "Tartarus", text_2: "The Abyss", father: 1 },
+        { id: 3, text_1: "Gaia", text_2: "The Earth", father: 1 },
+        { id: 4, text_1: "Eros", text_2: "Desire", father: 1 },
+        { id: 5, text_1: "Uranus", text_2: "The Sky", father: 3 },
+        { id: 6, text_1: "Ourea", text_2: "Mountains", father: 3 }];
+
+    var myTree = Treeviz.create({
+        htmlID: "tree",
+        nodeField: "id",
+        flatData: true,
+        relationnalField: "father",
+        zoomBehavior: true,
+        nodeSettings: {
+            width: 160,
+            height: 100,
+            depthDistance: 300,
+            template: "<div style='height:{{height}}px; width:{{width}}px;display:flex;flex-direction:column;justify-content:center;align-items:center;'><div><strong>{{text_1}}</strong></div><div>is</div><div><i>{{text_2}}</i></div></div>"
+        }
+    });
+    myTree.refresh(data_1);</script>
+
+</html>
