@@ -2,7 +2,7 @@
 
 This javascript module aims at providing an easy interface in order to represent tree diagrams on screen with the ability to handle dynamic data flows. The data format must be JSON.
 
-[Treeviz Demo](https://codepen.io/anon/pen/BPNvYL#anon-login)
+[Treeviz Demo](https://codepen.io/pierrecapo/pen/MPbBdv)
 
 ## Installation
 

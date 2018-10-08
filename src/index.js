@@ -5,40 +5,30 @@ import { drawLinks } from "./draw-links.ts";
 import { initiliazeSVG } from "./initializeSVG.ts";
 import { prepareData } from "./prepare-data.ts";
 
-export function create({
-  htmlID,
-  nodeField,
-  relationnalField,
-  flatData = true,
-  areaWidth = 800,
-  areaHeight = 450,
-  nodeSettings = {
-    width: 160,
-    height: 100,
-    depthDistance: 300,
-    colorField: null,
-    template: null,
-  },
-  linkSettings = {
-    colorField: null,
-    widthField: null,
-    shape: "quadraticBeziers",
-  },
-  horizontalLayout = true,
-  zoomBehavior = false,
-} = {}) {
-  const settings = {
-    htmlID,
-    nodeField,
-    relationnalField,
-    flatData,
-    areaWidth,
-    areaHeight,
-    nodeSettings,
-    linkSettings,
-    horizontalLayout,
-    zoomBehavior,
+export function create(userSettings) {
+  const defaultSettings = {
+    htmlID: "",
+    nodeField: "",
+    relationnalField: "",
+    flatData: true,
+    areaWidth: 800,
+    areaHeight: 450,
+    nodeSettings: {
+      width: 160,
+      height: 100,
+      depthDistance: 300,
+      colorField: null,
+      template: null,
+    },
+    linkSettings: {
+      colorField: null,
+      widthField: null,
+      shape: "quadraticBeziers",
+    },
+    horizontalLayout: true,
+    zoomBehavior: false,
   };
+  const settings = { ...defaultSettings, ...userSettings };
   console.log(settings);
   function draw(svg, source, treemap) {
     let i = 0;
@@ -53,19 +43,22 @@ export function create({
 
     var linkScale = d3
       .scaleLinear()
-      .domain([0, d3.max(nodes.map(el => el.data[linkSettings.widthField]))])
+      .domain([
+        0,
+        d3.max(nodes.map(el => el.data[settings.linkSettings.widthField])),
+      ])
       .range([0, 50]);
     window.a = linkScale;
     // Normalize for fixed-depth.
     nodes.forEach(function(d) {
-      d.y = d.depth * nodeSettings.depthDistance;
+      d.y = d.depth * settings.nodeSettings.depthDistance;
     });
 
     // ****************** Nodes section ***************************
 
     // Update the nodes...
     var node = svg.selectAll("g.node").data(nodes, function(d) {
-      return d[nodeField] || (d[nodeField] = ++i);
+      return d[settings.nodeField] || (d[settings.nodeField] = ++i);
     });
 
     // Enter any new modes at the parent's previous position.
@@ -74,7 +67,7 @@ export function create({
       .append("g")
       .attr("class", "node")
       .attr("transform", function(d) {
-        if (horizontalLayout) {
+        if (settings.horizontalLayout) {
           return typeof d.ancestors()[1] != "undefined"
             ? "translate(" + d.ancestors()[1].y + "," + d.ancestors()[1].x + ")"
             : "translate(" + source.y0 + "," + source.x0 + ")";
@@ -91,10 +84,10 @@ export function create({
       .attr("class", "node")
       .attr("rx", 5)
       .attr("ry", 5)
-      .attr("width", nodeSettings.width)
-      .attr("height", nodeSettings.height)
+      .attr("width", settings.nodeSettings.width)
+      .attr("height", settings.nodeSettings.height)
       .style("fill", d => {
-        return d[nodeSettings.colorField] || "#2196F3";
+        return d[settings.nodeSettings.colorField] || "#2196F3";
       })
       .style("cursor", "pointer")
       .on("click", d => {
@@ -103,18 +96,18 @@ export function create({
 
     nodeEnter
       .append("foreignObject")
-      .attr("width", nodeSettings.width)
-      .attr("height", nodeSettings.height)
+      .attr("width", settings.nodeSettings.width)
+      .attr("height", settings.nodeSettings.height)
       .style("pointer-events", "none")
       .html(d =>
         templateSystem(
           Object.assign(
             {},
             d.data,
-            { width: nodeSettings.width },
-            { height: nodeSettings.height }
+            { width: settings.nodeSettings.width },
+            { height: settings.nodeSettings.height }
           ),
-          nodeSettings.template
+          settings.nodeSettings.template
         )
       );
 
@@ -126,7 +119,7 @@ export function create({
       .transition()
       .duration(duration)
       .attr("transform", function(d) {
-        return horizontalLayout
+        return settings.horizontalLayout
           ? "translate(" + d.y + "," + d.x + ")"
           : "translate(" + d.x + "," + d.y + ")";
       });
@@ -137,7 +130,7 @@ export function create({
       .transition()
       .duration(duration)
       .attr("transform", function(d) {
-        return horizontalLayout
+        return settings.horizontalLayout
           ? "translate(" + d.ancestors()[1].y + "," + d.ancestors()[1].x + ")"
           : "translate(" + d.ancestors()[1].x + "," + d.ancestors()[1].y + ")";
       })
@@ -162,7 +155,7 @@ export function create({
       .insert("path", "g")
       .attr("class", "link")
       .attr("d", function(d) {
-        let o = horizontalLayout
+        let o = settings.horizontalLayout
           ? { x: d.ancestors()[1].x, y: d.ancestors()[1].y }
           : { x: d.ancestors()[1].y, y: d.ancestors()[1].x };
         return drawLinks(o, o, settings);
@@ -170,10 +163,10 @@ export function create({
       .attr("fill", "none")
       .attr(
         "stroke-width",
-        d => linkScale(d.data[linkSettings.widthField]) || 10
+        d => linkScale(d.data[settings.linkSettings.widthField]) || 10
       )
       .attr("stroke", d => {
-        return d[linkSettings.colorField] || "#A1887F";
+        return d[settings.linkSettings.colorField] || "#A1887F";
       });
 
     // UPDATE
@@ -193,10 +186,10 @@ export function create({
       .transition()
       .duration(duration)
       .attr("d", function(d) {
-        let o = horizontalLayout
+        let o = settings.horizontalLayout
           ? { x: d.ancestors()[1].x, y: d.ancestors()[1].y }
           : { x: d.ancestors()[1].y, y: d.ancestors()[1].x };
-        return drawLinks(o, o, drawLinks);
+        return drawLinks(o, o, settings);
       })
       .remove();
 
