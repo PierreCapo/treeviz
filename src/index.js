@@ -4,6 +4,8 @@ import { templateSystem } from "./template-system.ts";
 import { drawLinks } from "./draw-links.ts";
 import { initiliazeSVG } from "./initializeSVG.ts";
 import { prepareData } from "./prepare-data.ts";
+import { placeEnter } from "./node-enter.ts";
+import { placeExit } from "./node-exit.ts";
 
 export function create(userSettings) {
   const defaultSettings = {
@@ -27,9 +29,9 @@ export function create(userSettings) {
     },
     horizontalLayout: true,
     zoomBehavior: false,
+    duration: 400,
   };
   const settings = { ...defaultSettings, ...userSettings };
-  console.log(settings);
   function draw(svg, source, treemap) {
     let i = 0;
     let duration = 400;
@@ -48,7 +50,7 @@ export function create(userSettings) {
         d3.max(nodes.map(el => el.data[settings.linkSettings.widthField])),
       ])
       .range([0, 50]);
-    window.a = linkScale;
+
     // Normalize for fixed-depth.
     nodes.forEach(function(d) {
       d.y = d.depth * settings.nodeSettings.depthDistance;
@@ -62,21 +64,7 @@ export function create(userSettings) {
     });
 
     // Enter any new modes at the parent's previous position.
-    var nodeEnter = node
-      .enter()
-      .append("g")
-      .attr("class", "node")
-      .attr("transform", function(d) {
-        if (settings.horizontalLayout) {
-          return typeof d.ancestors()[1] != "undefined"
-            ? "translate(" + d.ancestors()[1].y + "," + d.ancestors()[1].x + ")"
-            : "translate(" + source.y0 + "," + source.x0 + ")";
-        } else {
-          return typeof d.ancestors()[1] != "undefined"
-            ? "translate(" + d.ancestors()[1].x + "," + d.ancestors()[1].y + ")"
-            : "translate(" + source.x0 + "," + source.y0 + ")";
-        }
-      });
+    var nodeEnter = placeEnter(node, source, settings);
 
     // Add squares for the nodes
     nodeEnter
@@ -125,16 +113,7 @@ export function create(userSettings) {
       });
 
     // Remove any exiting nodes
-    var nodeExit = node
-      .exit()
-      .transition()
-      .duration(duration)
-      .attr("transform", function(d) {
-        return settings.horizontalLayout
-          ? "translate(" + d.ancestors()[1].y + "," + d.ancestors()[1].x + ")"
-          : "translate(" + d.ancestors()[1].x + "," + d.ancestors()[1].y + ")";
-      })
-      .remove();
+    var nodeExit = placeExit(node, settings);
 
     // On exit reduce the node circles size to 0
     nodeExit.select("circle").attr("r", 1e-6);

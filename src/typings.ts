@@ -9,6 +9,7 @@ export interface ITreeConfig {
   linkSettings: ILinkSettings;
   horizontalLayout: boolean;
   zoomBehavior: boolean;
+  duration: number;
 }
 
 export interface INodeSettings {
