@@ -1,11 +1,21 @@
 {
   "name": "treeviz",
   "version": "1.0.3",
-  "description": "",
+  "description": "Library which aims to represent trees for data visualization",
+  "keywords": [
+    "d3",
+    "data",
+    "visualization",
+    "tree",
+    "decision",
+    "hierarchy",
+    "dynamic"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PierreCapo/treeviz.git"
   },
+  "license": "BSD-3-Clause",
   "main": "dist/index.js",
   "scripts": {
     "build": "webpack --mode=production",
