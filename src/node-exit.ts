@@ -5,8 +5,8 @@ export const placeExit = (node: any, settings: any) => {
     .duration(settings.duration)
     .attr("transform", (d: any) => {
       return settings.horizontalLayout
-        ? "translate(" + d.ancestors()[1].y + "," + d.ancestors()[1].x + ")"
-        : "translate(" + d.ancestors()[1].x + "," + d.ancestors()[1].y + ")";
+        ? "translate(" + d.ancestors()[1].y0 + "," + d.ancestors()[1].x0 + ")"
+        : "translate(" + d.ancestors()[1].x0 + "," + d.ancestors()[1].y0 + ")";
     })
     .remove();
 };

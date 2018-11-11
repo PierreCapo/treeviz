@@ -3,7 +3,9 @@ import { ITreeConfig } from "./typings";
 
 export const prepareData = (data: any, treeConfig: ITreeConfig) => {
   const { nodeField, relationnalField, flatData } = treeConfig;
-  const treemap = d3.tree().nodeSize([300, 500]);
+  const treemap = d3
+    .tree()
+    .nodeSize([treeConfig.nodeHeight * 1.25, treeConfig.nodeWidth * 1.5]);
   let root;
   if (!flatData) {
     root = d3.hierarchy(data, d => d[relationnalField]);

@@ -6,6 +6,7 @@ import { initiliazeSVG } from "./initializeSVG.ts";
 import { prepareData } from "./prepare-data.ts";
 import { placeEnter } from "./node-enter.ts";
 import { placeExit } from "./node-exit.ts";
+import { tree } from "d3";
 
 export function create(userSettings) {
   const defaultSettings = {
@@ -15,23 +16,20 @@ export function create(userSettings) {
     flatData: true,
     areaWidth: 800,
     areaHeight: 450,
-    nodeSettings: {
-      width: 160,
-      height: 100,
-      depthDistance: 300,
-      colorField: null,
-      template: null,
-    },
-    linkSettings: {
-      colorField: null,
-      widthField: null,
-      shape: "quadraticBeziers",
-    },
+    nodeWidth: 160,
+    nodeHeight: 100,
+    nodeDepthDistance: 300,
+    nodeColor: null,
+    nodeTemplate: null,
+    linkColor: null,
+    linkWidth: null,
+    linkShape: "quadraticBeziers",
     horizontalLayout: true,
     zoomBehavior: false,
     duration: 400,
   };
   const settings = { ...defaultSettings, ...userSettings };
+  var oldPosition = [];
   function draw(svg, source, treemap) {
     let i = 0;
     let duration = 400;
@@ -43,18 +41,21 @@ export function create(userSettings) {
     var nodes = treeData.descendants(),
       links = treeData.descendants().slice(1);
 
-    var linkScale = d3
-      .scaleLinear()
-      .domain([
-        0,
-        d3.max(nodes.map(el => el.data[settings.linkSettings.widthField])),
-      ])
-      .range([0, 50]);
-
     // Normalize for fixed-depth.
     nodes.forEach(function(d) {
-      d.y = d.depth * settings.nodeSettings.depthDistance;
+      d.y = d.depth * settings.nodeDepthDistance;
     });
+
+    oldPosition.forEach((d, index) => {
+      try {
+        nodes[index].x0 = d.x0;
+        nodes[index].y0 = d.y0;
+      } catch (e) {
+        return;
+      }
+    });
+
+    console.log(nodes);
 
     // ****************** Nodes section ***************************
 
@@ -72,11 +73,9 @@ export function create(userSettings) {
       .attr("class", "node")
       .attr("rx", 5)
       .attr("ry", 5)
-      .attr("width", settings.nodeSettings.width)
-      .attr("height", settings.nodeSettings.height)
-      .style("fill", d => {
-        return d[settings.nodeSettings.colorField] || "#2196F3";
-      })
+      .attr("width", settings.nodeWidth)
+      .attr("height", settings.nodeHeight)
+      .style("fill", ({ data }) => settings.nodeColor(data))
       .style("cursor", "pointer")
       .on("click", d => {
         obj.emit("nodeClick", d);
@@ -84,18 +83,18 @@ export function create(userSettings) {
 
     nodeEnter
       .append("foreignObject")
-      .attr("width", settings.nodeSettings.width)
-      .attr("height", settings.nodeSettings.height)
+      .attr("width", settings.nodeWidth)
+      .attr("height", settings.nodeHeight)
       .style("pointer-events", "none")
       .html(d =>
         templateSystem(
           Object.assign(
             {},
             d.data,
-            { width: settings.nodeSettings.width },
-            { height: settings.nodeSettings.height }
+            { width: settings.nodeWidth },
+            { height: settings.nodeHeight }
           ),
-          settings.nodeSettings.template
+          settings.nodeTemplate
         )
       );
 
@@ -115,6 +114,8 @@ export function create(userSettings) {
     // Remove any exiting nodes
     var nodeExit = placeExit(node, settings);
 
+    nodeExit.select("rect").style("fill-opacity", 1e-6);
+
     // On exit reduce the node circles size to 0
     nodeExit.select("circle").attr("r", 1e-6);
 
@@ -133,20 +134,26 @@ export function create(userSettings) {
       .enter()
       .insert("path", "g")
       .attr("class", "link")
-      .attr("d", function(d) {
-        let o = settings.horizontalLayout
-          ? { x: d.ancestors()[1].x, y: d.ancestors()[1].y }
-          : { x: d.ancestors()[1].y, y: d.ancestors()[1].x };
-        return drawLinks(o, o, settings);
+      .attr("d", d => {
+        if (settings.horizontalLayout) {
+          let o =
+            typeof d.ancestors()[1] !== "undefined" &&
+            typeof d.ancestors()[1].x0 !== "undefined"
+              ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
+              : { x: source.x, y: source.y };
+          return drawLinks(o, o, settings);
+        } else {
+          let o =
+            typeof d.ancestors()[1] !== "undefined" &&
+            typeof d.ancestors()[1].x0 !== "undefined"
+              ? { x: d.ancestors()[1].y0, y: d.ancestors()[1].x0 }
+              : { x: source.y, y: source.x };
+          return drawLinks(o, o, settings);
+        }
       })
       .attr("fill", "none")
-      .attr(
-        "stroke-width",
-        d => linkScale(d.data[settings.linkSettings.widthField]) || 10
-      )
-      .attr("stroke", d => {
-        return d[settings.linkSettings.colorField] || "#A1887F";
-      });
+      .attr("stroke-width", ({ data }) => settings.linkWidth(data))
+      .attr("stroke", ({ data }) => settings.linkColor(data));
 
     // UPDATE
     var linkUpdate = linkEnter.merge(link);
@@ -164,18 +171,19 @@ export function create(userSettings) {
       .exit()
       .transition()
       .duration(duration)
-      .attr("d", function(d) {
+      .attr("d", d => {
         let o = settings.horizontalLayout
-          ? { x: d.ancestors()[1].x, y: d.ancestors()[1].y }
-          : { x: d.ancestors()[1].y, y: d.ancestors()[1].x };
+          ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
+          : { x: d.ancestors()[1].y0, y: d.ancestors()[1].x0 };
         return drawLinks(o, o, settings);
       })
       .remove();
+    linkExit.select(".link").attr("stroke-opacity", 1e-6);
 
     // Store the old positions for transition.
-    nodes.forEach(function(d) {
-      d.x0 = d.x;
-      d.y0 = d.y;
+
+    nodes.forEach(function(d, index) {
+      oldPosition[index] = { x0: d.x, y0: d.y };
     });
   }
 

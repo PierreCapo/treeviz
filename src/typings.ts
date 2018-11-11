@@ -5,23 +5,15 @@ export interface ITreeConfig {
   flatData: boolean;
   areaWidth: number;
   areaHeight: number;
-  nodeSettings: INodeSettings;
-  linkSettings: ILinkSettings;
+  nodeWidth: number;
+  nodeHeight: number;
+  nodeDepthDistance: number;
+  nodeTemplate: string;
+  nodeColor: () => string;
+  linkShape: string;
+  linkColor: () => string;
+  linkWidth: () => string;
   horizontalLayout: boolean;
   zoomBehavior: boolean;
   duration: number;
-}
-
-export interface INodeSettings {
-  width: number;
-  height: number;
-  depthDistance: number;
-  colorField: string;
-  template: string;
-}
-
-export interface ILinkSettings {
-  colorField: string;
-  widthField: string;
-  shape: string;
 }

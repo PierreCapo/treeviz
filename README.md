@@ -2,7 +2,9 @@
 
 This javascript module aims at providing an easy interface in order to represent tree diagrams on screen with the ability to handle dynamic data flows. The data format must be JSON.
 
-[Treeviz Demo](https://codepen.io/pierrecapo/pen/MPbBdv)
+[treeviz-demo](https://imgur.com/a/1yg1yb9.gif)
+
+[Treeviz Playground](https://codepen.io/pierrecapo/pen/MPbBdv)
 
 ## Installation
 
@@ -36,63 +38,23 @@ The big part of the API is configuring the tree before passing data to it :
 Treeviz.create(config);
 ```
 
-#### config.htmlD (String)
-
-Mandatory. The HTML id tag on the page where the tree should be drawn.
-
-#### config.nodeField (String)
-
-Mandatory. The unique identifier field in the dataset representing the node
-
-#### config.relationnalField (String)
-
-Mandatory. This one is a bit harder to understand. There are 2 ways to provide data to the tree : or a flat dataset (typically an array of nodes), or a pre-built hierarchical dataset.
-In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below).
-In case of pre-built hierarchical dataset, the relationnal field is the field representing an array of children
-
-#### config.areaWidth (String)
-
-The width avalaible for drawing the tree. Default to "800px"
-
-#### config.areaHeight (String)
-
-The height of the drawn area. Default to "450px"
-
-#### config.nodeSettings (Object)
-
-An object defining the nodes. Default values are shown here
-
-```js
-{ width:  160, // width of the nodes
-height:  100, // height of the nodes
-depthDistance:  300, // distance between depth levels
-colorField:  null, // Setting the node color. If null, nodes will be blue.
-template:  null  /* HTML definition of the text inside the nodes.
-                  {{ }} is the way to access the data field dynamically inside
-                  the template, like : <div>{{my_field}}</div> */
-}
-```
-
-#### config.linkSettings(Object)
-
-An object defining the links. Default values are shown here
-
-```js
-{ colorField:  null, // Setting the link color. If null, links will be grey
-widthField:  null /* field responsible of the width of links.
-                  The module will automatically compute the max of this field
-                  from every node, and will make a linear scale from 1px to 50px
-                  with it */
-}
-```
-
-#### config.horizontalLayout (String)
-
-Toggle whether the tree should have an horizontal or vertical layout. Default to true (horizontal layout).
-
-#### config.zoomBehavior (String)
-
-Toggle whether pan or zoom are avalaible or not. Default to false (no zoom).
+| Command            | Type                               | Default              | Definition                                                                                                                                                                         |
+| ------------------ | ---------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `htmlID`           | string (Required)                  |                      | The HTML id tag on the page where the tree should be drawn.                                                                                                                        |
+| `nodeField`        | string                             | "id"                 | The unique identifier field in the dataset representing the node                                                                                                                   |
+| `relationnalField` | string                             | "father"             | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
+| `areaWidth`        | number                             | 800                  | The width avalaible for drawing the tree                                                                                                                                           |
+| `areaHeight`       | number                             | 450                  | The height avalaible for drawing the tree                                                                                                                                          |
+| `flatData`         | boolean                            | true                 | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
+| `zoomBehavior`     | boolean                            | true                 | Toggle the ability to pan and zoom the tree                                                                                                                                        |
+| `nodeWidth`        | number                             | 160                  | Width of a node in px                                                                                                                                                              |
+| `nodeHeight`       | number                             | 100                  | Height of a node in px                                                                                                                                                             |
+| `nodeColor`        | function                           | (nodeData) => "blue" | Color of the node                                                                                                                                                                  |
+| `linkColor`        | function                           | (nodeData) => "grey" | Color of the link                                                                                                                                                                  |
+| `linkWidth`        | function                           | (nodeData) => 10     | Width of the link                                                                                                                                                                  |
+| `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"   | Shape of the link                                                                                                                                                                  |
+| `nodeTemplate`     |                                    |                      | HTML template for every node                                                                                                                                                       |
+| `horizontalLayout` | boolean                            | true                 | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
 
 #### Treeviz.on (Event)
 
@@ -115,17 +77,10 @@ var flat_data_example = [
 ];
 
 var myTree = Treeviz.create({
-  htmlID: "a_tree",
+  htmlID: "tree",
   nodeField: "id",
   flatData: true,
   relationnalField: "father",
-  nodeSettings: {
-    width: 160,
-    height: 100,
-    depthDistance: 300,
-    template:
-      "<div style='height:{{height}}px; width:{{width}}px;display:flex;justify-content:center;align-items:center;'><div>{{node_name}}</div></div>",
-  },
 });
 
 myTree.refresh(flat_data_example);
@@ -141,21 +96,10 @@ var hierarchical_data_example = {
 };
 
 var myTree = Treeviz.create({
-  htmlID: "a_tree",
+  htmlID: "tree",
   nodeField: "name",
   flatData: false,
   relationnalField: "children",
-  nodeSettings: {
-    width: 160,
-    height: 100,
-    depthDistance: 300,
-    template:
-      "<div style='height:{{height}}px; width:{{width}}px;display:flex;justify-content:center;align-items:center;'><div>{{name}}</div></div>",
-  },
-  linkSettings: {
-    colorField: null,
-    widthField: "qty",
-  },
 });
 
 myTree.refresh(hierarchical_data_example);
