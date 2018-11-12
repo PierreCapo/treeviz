@@ -53,8 +53,6 @@ export function create(userSettings) {
       }
     });
 
-    console.log(nodes);
-
     // ****************** Nodes section ***************************
 
     // Update the nodes...
@@ -133,21 +131,12 @@ export function create(userSettings) {
       .insert("path", "g")
       .attr("class", "link")
       .attr("d", d => {
-        if (settings.horizontalLayout) {
-          let o =
-            typeof d.ancestors()[1] !== "undefined" &&
-            typeof d.ancestors()[1].x0 !== "undefined"
-              ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
-              : { x: source.x, y: source.y };
-          return drawLinks(o, o, settings);
-        } else {
-          let o =
-            typeof d.ancestors()[1] !== "undefined" &&
-            typeof d.ancestors()[1].x0 !== "undefined"
-              ? { x: d.ancestors()[1].y0, y: d.ancestors()[1].x0 }
-              : { x: source.y, y: source.x };
-          return drawLinks(o, o, settings);
-        }
+        let o =
+          typeof d.ancestors()[1] !== "undefined" &&
+          typeof d.ancestors()[1].x0 !== "undefined"
+            ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
+            : { x: source.x, y: source.y };
+        return drawLinks(o, o, settings);
       })
       .attr("fill", "none")
       .attr("stroke-width", ({ data }) => settings.linkWidth(data))
@@ -170,9 +159,7 @@ export function create(userSettings) {
       .transition()
       .duration(duration)
       .attr("d", d => {
-        let o = settings.horizontalLayout
-          ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
-          : { x: d.ancestors()[1].y0, y: d.ancestors()[1].x0 };
+        let o = { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 };
         return drawLinks(o, o, settings);
       })
       .remove();
