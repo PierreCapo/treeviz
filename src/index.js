@@ -14,8 +14,6 @@ export function create(userSettings) {
     nodeField: "",
     relationnalField: "",
     flatData: true,
-    areaWidth: 800,
-    areaHeight: 450,
     nodeWidth: 160,
     nodeHeight: 100,
     nodeDepthDistance: 300,

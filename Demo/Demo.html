@@ -10,7 +10,7 @@
     <input type="button" id="add" value="Add data" style="font-size:35px;"></input>
     <input type="button" id="remove" value="Remove data"style="font-size:35px;"></input>
 
-    <div id="tree"></div>
+    <div id="tree" style="height:800px;width:1000px"></div>
 
 </body>
 <script>
@@ -43,8 +43,6 @@
     var myTree = Treeviz.create({
         htmlID: "tree",
         nodeField: "id",
-        areaHeight: 800,
-        areaWidth: 1000,
         flatData: true,
         relationnalField: "father",
         zoomBehavior: true,

@@ -2,14 +2,20 @@ import * as d3 from "d3";
 import { ITreeConfig } from "./typings";
 
 export const initiliazeSVG = (treeConfig: ITreeConfig) => {
-  const {
-    areaHeight,
-    areaWidth,
-    htmlID,
-    horizontalLayout,
-    zoomBehavior,
-  } = treeConfig;
+  const { htmlID, horizontalLayout, zoomBehavior } = treeConfig;
   const margin = { top: 20, right: 90, bottom: 30, left: 90 };
+  if (document.querySelector(`#${htmlID}`) === null) {
+    throw new Error("Unable to find the html id element");
+  }
+  // @ts-ignore
+  const areaWidth = document.querySelector(`#${htmlID}`).clientWidth;
+  // @ts-ignore
+  const areaHeight = document.querySelector(`#${htmlID}`).clientHeight;
+  if (areaHeight === 0 || areaWidth === 0) {
+    throw new Error(
+      "The tree can't be display because the svg height or width of the container is null"
+    );
+  }
   const width = areaWidth - margin.left - margin.right;
   const height = areaHeight - margin.top - margin.bottom;
 
