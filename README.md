@@ -51,7 +51,7 @@ Treeviz.create(config);
 | `linkColor`        | function                           | (nodeData) => "grey" | Color of the link                                                                                                                                                                  |
 | `linkWidth`        | function                           | (nodeData) => 10     | Width of the link                                                                                                                                                                  |
 | `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"   | Shape of the link                                                                                                                                                                  |
-| `nodeTemplate`     |                                    |                      | HTML template for every node                                                                                                                                                       |
+| `nodeTemplate`     | function                      |                      | HTML template for every node                                                                                                                                                       |
 | `horizontalLayout` | boolean                            | true                 | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
 
 #### Treeviz.on (Event)

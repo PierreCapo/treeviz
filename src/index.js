@@ -1,12 +1,10 @@
 import * as d3 from "d3";
 import Emitter from "component-emitter";
-import { templateSystem } from "./template-system.ts";
 import { drawLinks } from "./draw-links.ts";
 import { initiliazeSVG } from "./initializeSVG.ts";
 import { prepareData } from "./prepare-data.ts";
 import { placeEnter } from "./node-enter.ts";
 import { placeExit } from "./node-exit.ts";
-import { tree } from "d3";
 
 export function create(userSettings) {
   const defaultSettings = {
@@ -82,17 +80,7 @@ export function create(userSettings) {
       .attr("width", settings.nodeWidth)
       .attr("height", settings.nodeHeight)
       .style("pointer-events", "none")
-      .html(d =>
-        templateSystem(
-          Object.assign(
-            {},
-            d.data,
-            { width: settings.nodeWidth },
-            { height: settings.nodeHeight }
-          ),
-          settings.nodeTemplate
-        )
-      );
+      .html(({data})=> settings.nodeTemplate(data));// settings.nodeTemplate(data));
 
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);

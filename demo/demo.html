@@ -51,7 +51,7 @@
         nodeColor: (nodeData) => nodeData.color ,
         depthDistance:300,
         horizontalLayout:true,
-        nodeTemplate: "<div style='height:{{height}}px; width:{{width}}px;display:flex;flex-direction:column;justify-content:center;align-items:center;'><div><strong>{{text_1}}</strong></div><div>is</div><div><i>{{text_2}}</i></div></div>",
+        nodeTemplate: (nodeData) => "<div style='height:100px; width:160px;display:flex;flex-direction:column;justify-content:center;align-items:center;'><div><strong>"+nodeData.text_1+"</strong></div><div>is</div><div><i>"+nodeData.text_2+"</i></div></div>",
         linkWidth : (nodeData)=> nodeData.id*5,
         linkColor : (nodeData) => "#B0BEC5" 
     });

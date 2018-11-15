@@ -8,7 +8,7 @@ export interface ITreeConfig {
   nodeWidth: number;
   nodeHeight: number;
   nodeDepthDistance: number;
-  nodeTemplate: string;
+  nodeTemplate: () => string;
   nodeColor: () => string;
   linkShape: string;
   linkColor: () => string;
