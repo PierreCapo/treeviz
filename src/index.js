@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import Emitter from "component-emitter";
 import { drawLinks } from "./draw-links.ts";
 import { initiliazeSVG } from "./initializeSVG.ts";
 import { prepareData } from "./prepare-data.ts";
@@ -23,6 +22,9 @@ export function create(userSettings) {
     horizontalLayout: true,
     zoomBehavior: false,
     duration: 400,
+    onNodeClick: () => null,
+    onNodeMouseEnter: () => null,
+    onNodeMouseLeave: () => null,
   };
   const settings = { ...defaultSettings, ...userSettings };
   var oldPosition = [];
@@ -71,16 +73,16 @@ export function create(userSettings) {
       .attr("height", settings.nodeHeight)
       .style("fill", ({ data }) => settings.nodeColor(data))
       .style("cursor", "pointer")
-      .on("click", d => {
-        obj.emit("nodeClick", d);
-      });
+      .on("click", settings.onNodeClick)
+      .on("mouseenter", settings.onNodeMouseEnter)
+      .on("mouseleave", settings.onNodeMouseLeave);
 
     nodeEnter
       .append("foreignObject")
       .attr("width", settings.nodeWidth)
       .attr("height", settings.nodeHeight)
       .style("pointer-events", "none")
-      .html(({data})=> settings.nodeTemplate(data));// settings.nodeTemplate(data));
+      .html(({ data }) => settings.nodeTemplate(data)); // settings.nodeTemplate(data));
 
     // UPDATE
     var nodeUpdate = nodeEnter.merge(node);
@@ -166,7 +168,6 @@ export function create(userSettings) {
   }
 
   var obj = { refresh: refresh };
-  Emitter(obj);
 
   let svg = initiliazeSVG(settings);
   return obj;

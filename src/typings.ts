@@ -8,11 +8,14 @@ export interface ITreeConfig {
   nodeWidth: number;
   nodeHeight: number;
   nodeDepthDistance: number;
-  nodeTemplate: () => string;
-  nodeColor: () => string;
+  nodeTemplate: (node: any) => string;
+  nodeColor: (node: any) => string;
   linkShape: string;
-  linkColor: () => string;
-  linkWidth: () => string;
+  linkColor: (node: any) => string;
+  linkWidth: (node: any) => string;
+  onNodeClick: (node: any) => null;
+  onNodeMouseEnter: (node: any) => null;
+  onNodeMouseLeave: (node: any) => null;
   horizontalLayout: boolean;
   zoomBehavior: boolean;
   duration: number;

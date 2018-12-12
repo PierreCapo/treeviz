@@ -38,7 +38,9 @@ The big part of the API is configuring the tree before passing data to it :
 Treeviz.create(config);
 ```
 
-| Command            | Type                               | Default              | Definition                                                                                                                                                                         |
+The table below lists all the avalaible key that the config object can have
+
+| Key                | Type                               | Default              | Definition                                                                                                                                                                         |
 | ------------------ | ---------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `htmlID`           | string (Required)                  |                      | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
 | `nodeField`        | string                             | "id"                 | The unique identifier field in the dataset representing the node                                                                                                                   |
@@ -51,14 +53,13 @@ Treeviz.create(config);
 | `linkColor`        | function                           | (nodeData) => "grey" | Color of the link                                                                                                                                                                  |
 | `linkWidth`        | function                           | (nodeData) => 10     | Width of the link                                                                                                                                                                  |
 | `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"   | Shape of the link                                                                                                                                                                  |
-| `nodeTemplate`     | function                      |                      | HTML template for every node                                                                                                                                                       |
+| `nodeTemplate`     | function                           |                      | HTML template for every node                                                                                                                                                       |
 | `horizontalLayout` | boolean                            | true                 | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
 
-#### Treeviz.on (Event)
+| `onNodeClick` | function | | Function handling the event when someone click on it |
+| `onNodeMouseEnter` | function | | Function handling the event when someone hover a node |
 
-If you click on a node, the event will be triggered, and the node data will be passed as an argument to the callback function.
-
-`Treeviz.on("nodeClick", function(d) { // do something });`
+| `onNodeMouseLeave` | function | | Function handling the event when the mouse pointer leaves a node |
 
 ## Example
 
@@ -79,6 +80,7 @@ var myTree = Treeviz.create({
   nodeField: "id",
   flatData: true,
   relationnalField: "father",
+  onNodeClick: nodeData => console.log("you clicked me!"),
 });
 
 myTree.refresh(flat_data_example);
