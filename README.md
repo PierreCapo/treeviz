@@ -53,13 +53,11 @@ The table below lists all the avalaible key that the config object can have
 | `linkColor`        | function                           | (nodeData) => "grey" | Color of the link                                                                                                                                                                  |
 | `linkWidth`        | function                           | (nodeData) => 10     | Width of the link                                                                                                                                                                  |
 | `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"   | Shape of the link                                                                                                                                                                  |
-| `nodeTemplate`     | function                           |                      | HTML template for every node                                                                                                                                                       |
+| `nodeTemplate`     | function                           | (nodeData) => null   | HTML template for every node                                                                                                                                                       |
 | `horizontalLayout` | boolean                            | true                 | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
-
-| `onNodeClick` | function | | Function handling the event when someone click on it |
-| `onNodeMouseEnter` | function | | Function handling the event when someone hover a node |
-
-| `onNodeMouseLeave` | function | | Function handling the event when the mouse pointer leaves a node |
+| `onNodeClick`      | function                           | (nodeData) => null   | Function handling the event when someone click on it                                                                                                                               |
+| `onNodeMouseEnter` | function                           | (nodeData) => null   | Function handling the event when someone hover a node                                                                                                                              |
+| `onNodeMouseLeave` | function                           | (nodeData) => null   | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
 
 ## Example
 
