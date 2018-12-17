@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "index.js",
@@ -14,6 +14,9 @@ module.exports = {
     open: true, // open the browser automatically
     historyApiFallback: true, // can use any URL and refresh the browser manually
     contentBase: "./dist",
+  },
+  resolve: {
+    extensions: [".ts", ".tsx", ".js"],
   },
   plugins: [
     new HtmlWebpackPlugin({
