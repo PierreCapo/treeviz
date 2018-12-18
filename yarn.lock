@@ -606,11 +606,6 @@
     lodash "^4.17.10"
     to-fast-properties "^2.0.0"
 
-"@types/component-emitter@^1.2.7":
-  version "1.2.7"
-  resolved "https://registry.yarnpkg.com/@types/component-emitter/-/component-emitter-1.2.7.tgz#d49a2c65a89c8b594e7355a92e43cf1d278b577c"
-  integrity sha512-xJ/RPKEg1BJ3PiwtS1OCHGACOgMt0jXjZ3Y81YVFRig/1CNmjZa2A4g+/L1MWOeFY3JkFV1ziFGh7JPpS6Rl1w==
-
 "@types/d3-array@*":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@types/d3-array/-/d3-array-1.2.4.tgz#7088445c8717ba1fba416a1df7bbd11cc72a3763"
