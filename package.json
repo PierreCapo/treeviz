@@ -1,6 +1,6 @@
 {
   "name": "treeviz",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "description": "Library which aims to represent trees for data visualization",
   "keywords": [
     "d3",
@@ -16,7 +16,8 @@
     "url": "git://github.com/PierreCapo/treeviz.git"
   },
   "license": "BSD-3-Clause",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/typescript/index.d.ts",
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "webpack-dev-server  --mode=development",
