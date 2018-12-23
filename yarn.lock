@@ -785,10 +785,10 @@
     "@types/d3-interpolate" "*"
     "@types/d3-selection" "*"
 
-"@types/d3@^5.0.1":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@types/d3/-/d3-5.0.1.tgz#37fe11947b511b0adbfcb2ac9dd15914f0420c7d"
-  integrity sha512-Vw504EhC+lbpHu9XfOtWh62kgbs/zuxRIRFOHwrGUt6OYXR3/jp9aN5mM/njkESTPwnb5tCkbBeUfbwnHmfsSg==
+"@types/d3@^5.5.0":
+  version "5.5.0"
+  resolved "https://registry.yarnpkg.com/@types/d3/-/d3-5.5.0.tgz#dfdb67190f40a78773d5c8ef9aaba56d02aa8e76"
+  integrity sha512-Bz9EAhWnaO93jLYSAT13blgzwP5Z0grO5THBOXSMeWHIIFHA7ntJSLpHSCr1kDtQunEZKCYT9OfE+4lYY/PwlA==
   dependencies:
     "@types/d3-array" "*"
     "@types/d3-axis" "*"
