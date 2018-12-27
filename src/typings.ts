@@ -12,10 +12,10 @@ export interface ITreeConfig {
   nodeColor: (node: any) => string | null | number | boolean;
   linkShape: string;
   linkColor: (node: any) => string | null | boolean;
-  linkWidth: (node: any) => string | null | boolean;
-  onNodeClick: (node: any) => undefined;
-  onNodeMouseEnter: (node: any) => undefined;
-  onNodeMouseLeave: (node: any) => undefined;
+  linkWidth: (node: any) => string | number | null | boolean;
+  onNodeClick: (node: any) => void;
+  onNodeMouseEnter: (node: any) => void;
+  onNodeMouseLeave: (node: any) => void;
   horizontalLayout: boolean;
   zoomBehavior: boolean;
   duration: number;

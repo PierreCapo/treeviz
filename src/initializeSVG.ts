@@ -5,7 +5,8 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
   const { htmlID, horizontalLayout, zoomBehavior } = treeConfig;
   const margin = { top: 20, right: 90, bottom: 30, left: 90 };
   if (document.querySelector(`#${htmlID}`) === null) {
-    throw new Error("Unable to find the html id element");
+    throw new Error(`Unable to find the html element with id value : ${htmlID}. 
+    The tree can't be display`);
   }
   // @ts-ignore
   const areaWidth = document.querySelector(`#${htmlID}`).clientWidth;
@@ -49,8 +50,8 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     .append("svg")
     .attr("width", width + margin.right + margin.left)
     .attr("height", height + margin.top + margin.bottom)
-    // @ts-ignore type issue with d3 library
-    .call(zoomBehavior ? zoom : null)
+    // @ts-ignore
+    .call(zoomBehavior ? zoom : () => this)
     .append("g")
     .attr(
       "transform",

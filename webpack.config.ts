@@ -1,7 +1,9 @@
-const path = require("path");
+import webpack = require("webpack");
+
+import path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-module.exports = {
+const config: webpack.Configuration = {
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -27,7 +29,7 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
-        loader: "awesome-typescript-loader",
+        loader: "ts-loader",
       },
     ],
   },
@@ -38,3 +40,5 @@ module.exports = {
     dns: "empty",
   },
 };
+
+export default config;

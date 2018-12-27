@@ -10,7 +10,7 @@ This javascript module aims at providing an easy interface in order to represent
 
 With npm : `npm install treeviz`
 
-and then you can use it with : `import Treeviz from 'treeviz';`
+and then you can use it with : `import * as Treeviz from 'treeviz';`
 
 Or download this repository and link the dist/index.js file in your page directly : `<script src="./dist/index.js><script>`
 
@@ -40,24 +40,24 @@ Treeviz.create(config);
 
 The table below lists all the avalaible key that the config object can have
 
-| Key                | Type                               | Default              | Definition                                                                                                                                                                         |
-| ------------------ | ---------------------------------- | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `htmlID`           | string (Required)                  |                      | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
-| `nodeField`        | string                             | "id"                 | The unique identifier field in the dataset representing the node                                                                                                                   |
-| `relationnalField` | string                             | "father"             | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
-| `flatData`         | boolean                            | true                 | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
-| `zoomBehavior`     | boolean                            | true                 | Toggle the ability to pan and zoom the tree                                                                                                                                        |
-| `nodeWidth`        | number                             | 160                  | Width of a node in px                                                                                                                                                              |
-| `nodeHeight`       | number                             | 100                  | Height of a node in px                                                                                                                                                             |
-| `nodeColor`        | function                           | (nodeData) => "blue" | Color of the node                                                                                                                                                                  |
-| `linkColor`        | function                           | (nodeData) => "grey" | Color of the link                                                                                                                                                                  |
-| `linkWidth`        | function                           | (nodeData) => 10     | Width of the link                                                                                                                                                                  |
-| `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"   | Shape of the link                                                                                                                                                                  |
-| `nodeTemplate`     | function                           | (nodeData) => null   | HTML template for every node                                                                                                                                                       |
-| `horizontalLayout` | boolean                            | true                 | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
-| `onNodeClick`      | function                           | (nodeData) => null   | Function handling the event when someone click on it                                                                                                                               |
-| `onNodeMouseEnter` | function                           | (nodeData) => null   | Function handling the event when someone hover a node                                                                                                                              |
-| `onNodeMouseLeave` | function                           | (nodeData) => null   | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
+| Key                | Type                               | Default                 | Definition                                                                                                                                                                         |
+| ------------------ | ---------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `htmlID`           | string (Required)                  |                         | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
+| `nodeField`        | string                             | "id"                    | The unique identifier field in the dataset representing the node                                                                                                                   |
+| `relationnalField` | string                             | "father"                | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
+| `flatData`         | boolean                            | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
+| `zoomBehavior`     | boolean                            | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
+| `nodeWidth`        | number                             | 160                     | Width of a node in px                                                                                                                                                              |
+| `nodeHeight`       | number                             | 100                     | Height of a node in px                                                                                                                                                             |
+| `nodeColor`        | function                           | (nodeData) => "#2196f3" | Color of the node                                                                                                                                                                  |
+| `linkColor`        | function                           | (nodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
+| `linkWidth`        | function                           | (nodeData) => 10        | Width of the link                                                                                                                                                                  |
+| `linkShape`        | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"      | Shape of the link                                                                                                                                                                  |
+| `nodeTemplate`     | function                           | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
+| `horizontalLayout` | boolean                            | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
+| `onNodeClick`      | function                           | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
+| `onNodeMouseEnter` | function                           | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
+| `onNodeMouseLeave` | function                           | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
 
 ## Example
 

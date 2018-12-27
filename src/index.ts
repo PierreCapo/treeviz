@@ -8,7 +8,7 @@ import { generateBasicTreemap, generateNestedData } from "./prepare-data";
 import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 
 export function create(userSettings: Partial<ITreeConfig>) {
-  const defaultSettings = {
+  const defaultSettings: ITreeConfig = {
     htmlID: "",
     nodeField: "",
     relationnalField: "",
@@ -16,10 +16,10 @@ export function create(userSettings: Partial<ITreeConfig>) {
     nodeWidth: 160,
     nodeHeight: 100,
     nodeDepthDistance: 300,
-    nodeColor: () => null,
-    nodeTemplate: () => null,
-    linkColor: () => null,
-    linkWidth: () => null,
+    nodeColor: () => "#2196f3",
+    nodeTemplate: () => "Node",
+    linkColor: () => "#ffcc80",
+    linkWidth: () => 10,
     linkShape: "quadraticBeziers",
     horizontalLayout: true,
     zoomBehavior: false,
