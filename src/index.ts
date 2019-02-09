@@ -27,6 +27,11 @@ export function create(userSettings: Partial<ITreeConfig>) {
     onNodeClick: () => undefined,
     onNodeMouseEnter: () => undefined,
     onNodeMouseLeave: () => undefined,
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0,
+    nodeSpacerPercentage: 1.25,
   };
   const settings: ITreeConfig = { ...defaultSettings, ...userSettings };
   const oldPosition: Array<{ x0?: number; y0?: number; id?: string }> = [];
@@ -38,10 +43,13 @@ export function create(userSettings: Partial<ITreeConfig>) {
     const nodes = computedTree.descendants() as ExtendedHierarchyPointNode[];
     const links = computedTree.descendants().slice(1);
 
-    // Normalize for fixed-depth.
-    nodes.forEach((d: any) => {
-      d.y = d.depth * settings.nodeDepthDistance;
-    });
+    const { nodeDepthDistance } = settings;
+    if (nodeDepthDistance !== "auto") {
+      // Normalize for fixed-depth.
+      nodes.forEach((d: any) => {
+        d.y = d.depth * nodeDepthDistance;
+      });
+    }
 
     nodes.forEach((el: ExtendedHierarchyPointNode) => {
       el.x0 = {

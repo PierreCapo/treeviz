@@ -1,5 +1,6 @@
 import * as d3 from "d3";
 import { HierarchyNode } from "d3";
+import { getAreaSize } from "./services";
 import { ITreeConfig } from "./typings";
 
 export const generateNestedData = (
@@ -15,7 +16,33 @@ export const generateNestedData = (
     : d3.hierarchy(data, d => d[relationnalField]);
 };
 
-export const generateBasicTreemap = (treeConfig: ITreeConfig) =>
-  d3
-    .tree()
-    .nodeSize([treeConfig.nodeHeight * 1.25, treeConfig.nodeWidth * 1.5]);
+export const generateBasicTreemap = (treeConfig: ITreeConfig) => {
+  const { areaHeight, areaWidth } = getAreaSize(treeConfig.htmlID);
+  return treeConfig.nodeDepthDistance === "auto" && treeConfig.horizontalLayout
+    ? d3
+        .tree()
+        .size([
+          areaHeight - treeConfig.nodeHeight,
+          areaWidth - treeConfig.nodeWidth,
+        ])
+    : treeConfig.nodeDepthDistance === "auto" && !treeConfig.horizontalLayout
+    ? d3
+        .tree()
+        .size([
+          areaWidth - treeConfig.nodeWidth,
+          areaHeight - treeConfig.nodeHeight,
+        ])
+    : treeConfig.horizontalLayout === true
+    ? d3
+        .tree()
+        .nodeSize([
+          treeConfig.nodeHeight * treeConfig.nodeSpacerPercentage,
+          treeConfig.nodeWidth,
+        ])
+    : d3
+        .tree()
+        .nodeSize([
+          treeConfig.nodeWidth * treeConfig.nodeSpacerPercentage,
+          treeConfig.nodeHeight,
+        ]);
+};
