@@ -13,14 +13,40 @@ With npm : `npm install treeviz`
 and then you can use it with : `import * as Treeviz from 'treeviz';`
 
 Or download this repository and link the dist/index.js file in your page directly : `<script src="./dist/index.js><script>`
+Also, but not recommended, you can use : `<script src="https://rawgit.com/PierreCapo/treeviz/master/dist/index.js"></script>`
 
 ## Usage
 
-This module comes with a bunch of configuration settings.
+#### Basic example
 
-`var myTree = Treeviz.create({ // configuration here });`
+```
+// Define a tree element where dimensions are mandatory
+<div id="tree" style="height:700px; width:900px"></div>
 
-Then you can easily pass data to the object, and it will generate the tree :
+<script>
+// Define a dataset
+var data = [
+  { id: 1, text_1: "Father", father: null },
+  { id: 2, text_1: "Child A", father: 1 },
+  { id: 3, text_1: "Child B", , father: 1 },
+  { id: 4, text_1: "Subchild C", father: 2 }
+];
+
+// Define and configure a tree object
+var myTree = Treeviz.create({
+  htmlID: "tree",
+  nodeField: "id",
+  flatData: true,
+  nodeColor: (nodeData) => "grey",
+  relationnalField: "father",
+});
+
+// Display the tree based on the data
+myTree.refresh(data);
+</script>
+```
+
+To update the tree visually you will just have to pass new data to the `refresh` method like this :
 
 ```
 myTree.refresh(data);

@@ -34,7 +34,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
     nodeSpacerPercentage: 1.25,
   };
   const settings: ITreeConfig = { ...defaultSettings, ...userSettings };
-  const oldPosition: Array<{ x0?: number; y0?: number; id?: string }> = [];
+  let oldPosition: Array<{ x0?: number; y0?: number; id?: string }> = [];
   function draw(
     svg: Selection<SVGGElement, {}, HTMLElement, any>,
     computedTree: HierarchyPointNode<{}>
@@ -151,7 +151,19 @@ export function create(userSettings: Partial<ITreeConfig>) {
     draw(svg, computedTree);
   }
 
-  const obj = { refresh };
+  function clean(keepConfig: boolean) {
+    const myNode = keepConfig
+      ? document.querySelector(`#${settings.htmlID} svg g`)
+      : document.querySelector(`#${settings.htmlID}`);
+    if (myNode) {
+      while (myNode.firstChild) {
+        myNode.removeChild(myNode.firstChild);
+      }
+    }
+    oldPosition = [];
+  }
+
+  const obj = { refresh, clean };
 
   const svg = initiliazeSVG(settings);
   return obj;
