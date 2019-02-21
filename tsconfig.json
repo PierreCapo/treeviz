@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     /* Build Options */
-    "target": "es6",
+    "target": "es5",
     "lib": ["es2017", "esnext.asynciterable", "dom"],
     "pretty": true,
     "sourceMap": true,
