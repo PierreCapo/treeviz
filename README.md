@@ -19,7 +19,7 @@ Also, but not recommended, you can use : `<script src="https://rawgit.com/Pierre
 
 #### Basic example
 
-```
+```HTML
 // Define a tree element where dimensions are mandatory
 <div id="tree" style="height:700px; width:900px"></div>
 
@@ -48,7 +48,7 @@ myTree.refresh(data);
 
 To update the tree visually you will just have to pass new data to the `refresh` method like this :
 
-```
+```JS
 myTree.refresh(data);
 myTree.refresh(data_update1);
 myTree.refresh(data_update2);
@@ -60,7 +60,7 @@ The tree will be clever enough to updates only the part of the trees that have b
 
 The big part of the API is configuring the tree before passing data to it :
 
-```js
+```JS
 Treeviz.create(config);
 ```
 
