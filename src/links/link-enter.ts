@@ -1,8 +1,9 @@
-import { BaseType, HierarchyPointNode, Selection } from "d3";
-import { drawLinks } from "./draw-links";
-import { ITreeConfig } from "./typings";
+import { HierarchyPointNode } from "d3-hierarchy";
+import { BaseType, Selection } from "d3-selection";
+import { ITreeConfig } from "../typings";
+import { generateLinkLayout } from "./draw-links";
 
-export const placeLinkEnter = (
+export const drawLinkEnter = (
   link: Selection<BaseType, HierarchyPointNode<{}>, SVGGElement, {}>,
   computedTree: HierarchyPointNode<{}>,
   settings: ITreeConfig
@@ -17,7 +18,7 @@ export const placeLinkEnter = (
         typeof d.ancestors()[1].x0 !== "undefined"
           ? { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 }
           : { x: computedTree.x, y: computedTree.y };
-      return drawLinks(o, o, settings);
+      return generateLinkLayout(o, o, settings);
     })
     .attr("fill", "none")
     .attr("stroke-width", ({ data }: { data: any }) => settings.linkWidth(data))

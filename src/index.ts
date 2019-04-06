@@ -1,9 +1,12 @@
-import { HierarchyPointNode, Selection } from "d3";
-import { drawLinks } from "./draw-links";
+import { HierarchyPointNode } from "d3-hierarchy";
+import { Selection } from "d3-selection";
 import { initiliazeSVG } from "./initializeSVG";
-import { placeLinkEnter } from "./link-enter";
-import { placeNodeEnter } from "./node-enter";
-import { placeExit } from "./node-exit";
+import { drawLinkEnter } from "./links/link-enter";
+import { drawLinkExit } from "./links/link-exit";
+import { drawLinkUpdate } from "./links/link-update";
+import { drawNodeEnter } from "./nodes/node-enter";
+import { drawNodeExit } from "./nodes/node-exit";
+import { drawNodeUpdate } from "./nodes/node-update";
 import { generateBasicTreemap, generateNestedData } from "./prepare-data";
 import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 
@@ -35,11 +38,11 @@ export function create(userSettings: Partial<ITreeConfig>) {
   };
   const settings: ITreeConfig = { ...defaultSettings, ...userSettings };
   let oldPosition: Array<{ x0?: number; y0?: number; id?: string }> = [];
+
   function draw(
     svg: Selection<SVGGElement, {}, HTMLElement, any>,
     computedTree: HierarchyPointNode<{}>
   ) {
-    const duration = 400;
     const nodes = computedTree.descendants() as ExtendedHierarchyPointNode[];
     const links = computedTree.descendants().slice(1);
 
@@ -51,18 +54,20 @@ export function create(userSettings: Partial<ITreeConfig>) {
       });
     }
 
-    nodes.forEach((el: ExtendedHierarchyPointNode) => {
-      el.x0 = {
-        ...el,
+    nodes.forEach((currentNode: ExtendedHierarchyPointNode) => {
+      currentNode.x0 = {
+        ...currentNode,
         x0: undefined,
         y0: undefined,
-        ...oldPosition.filter(toto => toto.id === el.id)[0],
+        // @ts-ignore
+        ...oldPosition.filter(oldNode => oldNode.id === currentNode.id)[0],
       }.x0;
-      el.y0 = {
-        ...el,
+      currentNode.y0 = {
+        ...currentNode,
         x0: undefined,
         y0: undefined,
-        ...oldPosition.filter(toto => toto.id === el.id)[0],
+        // @ts-ignore
+        ...oldPosition.filter(oldNode => oldNode.id === currentNode.id)[0],
       }.y0;
     });
 
@@ -71,44 +76,9 @@ export function create(userSettings: Partial<ITreeConfig>) {
       return d[settings.nodeField];
     });
 
-    const nodeEnter = placeNodeEnter(node, settings);
-
-    nodeEnter
-      .append("rect")
-      .attr("class", "node")
-      .attr("rx", 5)
-      .attr("ry", 5)
-      .attr("width", settings.nodeWidth)
-      .attr("height", settings.nodeHeight)
-      .style("fill", ({ data }: { data: any }) => settings.nodeColor(data))
-      .style("cursor", "pointer")
-      .on("click", settings.onNodeClick)
-      .on("mouseenter", settings.onNodeMouseEnter)
-      .on("mouseleave", settings.onNodeMouseLeave);
-
-    nodeEnter
-      .append("foreignObject")
-      .attr("width", settings.nodeWidth)
-      .attr("height", settings.nodeHeight)
-      .style("pointer-events", "none")
-      .html(({ data }: { data: any }) => settings.nodeTemplate(data)); // settings.nodeTemplate(data));
-
-    // @ts-ignore
-    const nodeUpdate = nodeEnter.merge(node);
-
-    nodeUpdate
-      .transition()
-      .duration(duration)
-      .attr("transform", (d: any) => {
-        return settings.horizontalLayout
-          ? "translate(" + d.y + "," + d.x + ")"
-          : "translate(" + d.x + "," + d.y + ")";
-      });
-
-    const nodeExit = placeExit(node, settings);
-    nodeExit.select("rect").style("fill-opacity", 1e-6);
-    nodeExit.select("circle").attr("r", 1e-6);
-    nodeExit.select("text").style("fill-opacity", 1e-6);
+    const nodeEnter = drawNodeEnter(node, settings);
+    drawNodeUpdate(nodeEnter, node, settings);
+    drawNodeExit(node, settings);
 
     // ****************** links section ***************************
 
@@ -116,28 +86,9 @@ export function create(userSettings: Partial<ITreeConfig>) {
       return d.id;
     });
 
-    const linkEnter = placeLinkEnter(link, computedTree, settings);
-
-    // @ts-ignore
-    const linkUpdate = linkEnter.merge(link);
-
-    linkUpdate
-      .transition()
-      .duration(duration)
-      .attr("d", (d: any) => {
-        return drawLinks(d, d.parent, settings);
-      });
-
-    const linkExit = link
-      .exit()
-      .transition()
-      .duration(duration)
-      .attr("d", (d: any) => {
-        const o = { x: d.ancestors()[1].x0, y: d.ancestors()[1].y0 };
-        return drawLinks(o, o, settings);
-      })
-      .remove();
-    linkExit.select(".link").attr("stroke-opacity", 1e-6);
+    const linkEnter = drawLinkEnter(link, computedTree, settings);
+    drawLinkUpdate(linkEnter, link, settings);
+    drawLinkExit(link, settings);
 
     nodes.forEach((d: any, index: any) => {
       oldPosition[index] = { x0: d.x, y0: d.y, id: d.id };
@@ -163,8 +114,8 @@ export function create(userSettings: Partial<ITreeConfig>) {
     oldPosition = [];
   }
 
-  const obj = { refresh, clean };
+  const treeObject = { refresh, clean };
 
   const svg = initiliazeSVG(settings);
-  return obj;
+  return treeObject;
 }

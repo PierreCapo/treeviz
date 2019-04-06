@@ -1,4 +1,4 @@
-import { ITreeConfig } from "./typings";
+import { ITreeConfig } from "../typings";
 interface ICoordinates {
     x: number;
     y: number;

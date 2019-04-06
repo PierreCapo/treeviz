@@ -1,11 +1,11 @@
-import { ITreeConfig } from "./typings";
+import { ITreeConfig } from "../typings";
 
 interface ICoordinates {
   x: number;
   y: number;
 }
 
-export const drawLinks = (
+export const generateLinkLayout = (
   s: ICoordinates,
   d: ICoordinates,
   treeConfig: ITreeConfig

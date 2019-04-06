@@ -1,6 +1,6 @@
-import * as d3 from "d3";
-import { getAreaSize } from "./services";
+import d3 from "./d3";
 import { ITreeConfig } from "./typings";
+import { getAreaSize } from "./utils";
 
 export const initiliazeSVG = (treeConfig: ITreeConfig) => {
   const {

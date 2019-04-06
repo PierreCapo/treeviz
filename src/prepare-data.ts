@@ -1,7 +1,7 @@
-import * as d3 from "d3";
-import { HierarchyNode } from "d3";
-import { getAreaSize } from "./services";
+import { HierarchyNode } from "d3-hierarchy";
+import d3 from "./d3";
 import { ITreeConfig } from "./typings";
+import { getAreaSize } from "./utils";
 
 export const generateNestedData = (
   data: any,

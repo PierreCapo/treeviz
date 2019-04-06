@@ -1,4 +1,4 @@
-import { HierarchyPointNode } from "d3";
+import { HierarchyPointNode } from "d3-hierarchy";
 export interface ITreeConfig {
     htmlID: string;
     nodeField: string;
