@@ -32,29 +32,35 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
       svg.attr("transform", () => {
         return nodeDepthDistance === "auto"
           ? "translate(" +
-              (margin.left + d3.event.transform.x) +
+              (margin.left + d3.currentEvent.transform.x) +
               "," +
-              (margin.top + d3.event.transform.y) +
+              (margin.top + d3.currentEvent.transform.y) +
               ")" +
               "scale(" +
-              d3.event.transform.k +
+              d3.currentEvent.transform.k +
               ")"
           : horizontalLayout
           ? "translate(" +
-            (margin.left + d3.event.transform.x) +
+            (margin.left + d3.currentEvent.transform.x) +
             "," +
-            (margin.top + height / 2 - nodeHeight / 2 + d3.event.transform.y) +
+            (margin.top +
+              height / 2 -
+              nodeHeight / 2 +
+              d3.currentEvent.transform.y) +
             ")" +
             "scale(" +
-            d3.event.transform.k +
+            d3.currentEvent.transform.k +
             ")"
           : "translate(" +
-            (margin.left + width / 2 - nodeWidth / 2 + d3.event.transform.x) +
+            (margin.left +
+              width / 2 -
+              nodeWidth / 2 +
+              d3.currentEvent.transform.x) +
             "," +
-            (margin.top + d3.event.transform.y) +
+            (margin.top + d3.currentEvent.transform.y) +
             ")" +
             "scale(" +
-            d3.event.transform.k +
+            d3.currentEvent.transform.k +
             ")";
       });
     });
