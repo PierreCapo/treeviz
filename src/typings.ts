@@ -24,6 +24,7 @@ export interface ITreeConfig {
   marginLeft: number;
   marginRight: number;
   nodeSpacerPercentage: number;
+  reverseOrientation?: boolean;
 }
 
 export interface ExtendedHierarchyPointNode extends HierarchyPointNode<{}> {

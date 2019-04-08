@@ -9,6 +9,7 @@ import { drawNodeExit } from "./nodes/node-exit";
 import { drawNodeUpdate } from "./nodes/node-update";
 import { generateBasicTreemap, generateNestedData } from "./prepare-data";
 import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
+import { edit, editLinks } from "./utils";
 
 export function create(userSettings: Partial<ITreeConfig>) {
   const defaultSettings: ITreeConfig = {
@@ -45,14 +46,8 @@ export function create(userSettings: Partial<ITreeConfig>) {
   ) {
     const nodes = computedTree.descendants() as ExtendedHierarchyPointNode[];
     const links = computedTree.descendants().slice(1);
-
-    const { nodeDepthDistance } = settings;
-    if (nodeDepthDistance !== "auto") {
-      // Normalize for fixed-depth.
-      nodes.forEach((d: any) => {
-        d.y = d.depth * nodeDepthDistance;
-      });
-    }
+    edit(settings, nodes);
+    editLinks(settings, links);
 
     nodes.forEach((currentNode: ExtendedHierarchyPointNode) => {
       currentNode.x0 = {
