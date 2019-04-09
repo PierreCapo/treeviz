@@ -1,4 +1,6 @@
-import d3 from "./d3";
+// Got to import d3 two times because of an issue with Webpack/Babel with d3.event
+import * as d3 from "d3-selection";
+import customD3 from "./d3";
 import { ITreeConfig } from "./typings";
 import { getAreaSize } from "./utils";
 
@@ -25,7 +27,7 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
   const width = areaWidth - margin.left - margin.right;
   const height = areaHeight - margin.top - margin.bottom;
 
-  const zoom = d3
+  const zoom = customD3
     .zoom()
     .scaleExtent([0.2, 20])
     .on("zoom", () => {
