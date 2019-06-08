@@ -1,9 +1,8 @@
-import webpack = require("webpack");
-
 import path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const config: webpack.Configuration = {
+// webpack.Configuration type
+const config: any = {
   entry: "./src/index.ts",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -12,6 +11,7 @@ const config: webpack.Configuration = {
     library: "Treeviz",
     libraryTarget: "umd",
   },
+
   devServer: {
     open: true, // open the browser automatically
     historyApiFallback: true, // can use any URL and refresh the browser manually

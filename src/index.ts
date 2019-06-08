@@ -99,6 +99,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
     const nestedData = generateNestedData(data, settings);
     const treemap = generateBasicTreemap(settings);
     const computedTree = treemap(nestedData); // mutation
+    // @ts-ignore
     draw(svg, computedTree);
   }
 
