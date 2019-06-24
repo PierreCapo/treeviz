@@ -28,7 +28,7 @@ Also, but not recommended, you can use : `<script src="https://rawgit.com/Pierre
 var data = [
   { id: 1, text_1: "Father", father: null },
   { id: 2, text_1: "Child A", father: 1 },
-  { id: 3, text_1: "Child B", , father: 1 },
+  { id: 3, text_1: "Child B", father: 1 },
   { id: 4, text_1: "Subchild C", father: 2 }
 ];
 
