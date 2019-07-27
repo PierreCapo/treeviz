@@ -7,42 +7,42 @@ export const generateNestedData = (
   data: any,
   treeConfig: ITreeConfig
 ): HierarchyNode<any> => {
-  const { nodeField, relationnalField, flatData } = treeConfig;
-  return flatData
+  const { idKey, relationnalField, hasFlatData } = treeConfig;
+  return hasFlatData
     ? d3
         .stratify()
-        .id((d: any) => d[nodeField])
+        .id((d: any) => d[idKey])
         .parentId((d: any) => d[relationnalField])(data)
     : d3.hierarchy(data, d => d[relationnalField]);
 };
 
 export const generateBasicTreemap = (treeConfig: ITreeConfig) => {
-  const { areaHeight, areaWidth } = getAreaSize(treeConfig.htmlID);
-  return treeConfig.nodeDepthDistance === "auto" && treeConfig.horizontalLayout
+  const { areaHeight, areaWidth } = getAreaSize(treeConfig.htmlId);
+  return treeConfig.mainAxisNodeSpacing === "auto" && treeConfig.isHorizontal
     ? d3
         .tree()
         .size([
           areaHeight - treeConfig.nodeHeight,
           areaWidth - treeConfig.nodeWidth,
         ])
-    : treeConfig.nodeDepthDistance === "auto" && !treeConfig.horizontalLayout
+    : treeConfig.mainAxisNodeSpacing === "auto" && !treeConfig.isHorizontal
     ? d3
         .tree()
         .size([
           areaWidth - treeConfig.nodeWidth,
           areaHeight - treeConfig.nodeHeight,
         ])
-    : treeConfig.horizontalLayout === true
+    : treeConfig.isHorizontal === true
     ? d3
         .tree()
         .nodeSize([
-          treeConfig.nodeHeight * treeConfig.nodeSpacerPercentage,
+          treeConfig.nodeHeight * treeConfig.secondaryAxisNodeSpacing,
           treeConfig.nodeWidth,
         ])
     : d3
         .tree()
         .nodeSize([
-          treeConfig.nodeWidth * treeConfig.nodeSpacerPercentage,
+          treeConfig.nodeWidth * treeConfig.secondaryAxisNodeSpacing,
           treeConfig.nodeHeight,
         ]);
 };

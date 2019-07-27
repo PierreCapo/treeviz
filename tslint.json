@@ -1,5 +1,8 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier"
+  ],
   "rules": {
     "no-default-export": true,
     "no-empty-interface": true,
@@ -9,9 +12,22 @@
     "no-eval": true,
     "triple-equals": true,
     "no-inferrable-types": true,
-    "curly": [true, "ignore-same-line"],
-    "max-classes-per-file": [true, 1],
-    "max-file-line-count": [true, 200],
-    "typedef": [true, "call-signature", "property-declaration"]
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "max-classes-per-file": [
+      true,
+      1
+    ],
+    "max-file-line-count": [
+      true,
+      200
+    ],
+    "typedef": [
+      true,
+      "call-signature",
+      "property-declaration"
+    ],
   }
 }

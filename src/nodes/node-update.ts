@@ -13,13 +13,22 @@ export const drawNodeUpdate = (
 ) => {
   // @ts-ignore
   const nodeUpdate = nodeEnter.merge(node);
-
   nodeUpdate
     .transition()
     .duration(settings.duration)
     .attr("transform", (d: any) => {
-      return settings.horizontalLayout
+      return settings.isHorizontal
         ? "translate(" + d.y + "," + d.x + ")"
         : "translate(" + d.x + "," + d.y + ")";
     });
+
+  nodeUpdate
+    .select("foreignObject")
+    .attr("width", settings.nodeWidth)
+    .attr("height", settings.nodeHeight)
+    .style("overflow", "visible")
+    .on("click", settings.onNodeClick)
+    .on("mouseenter", settings.onNodeMouseEnter)
+    .on("mouseleave", settings.onNodeMouseLeave)
+    .html(d => settings.renderNode({ ...d, settings }));
 };

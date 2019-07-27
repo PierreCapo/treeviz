@@ -1,5 +1,9 @@
 # Treeviz
 
+[![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-auth-jwt2/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dwyl/hapi-auth-jwt2?targetFile=package.json)
+![David](https://img.shields.io/david/PierreCapo/treeviz)
+[![license](https://badgen.now.sh/badge/license/BSD)](./LICENSE)
+
 This javascript module aims at providing an easy interface in order to represent tree diagrams on screen with the ability to handle dynamic data flows. The data format must be JSON.
 
 ![](https://i.imgur.com/vyB2Erg.gif)
@@ -71,16 +75,15 @@ The table below lists all the avalaible key that the config object can have
 | `htmlID`               | string (Required)                  |                         | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
 | `nodeField`            | string                             | "id"                    | The unique identifier field in the dataset representing the node                                                                                                                   |
 | `relationnalField`     | string                             | "father"                | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
-| `flatData`             | boolean                            | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
-| `zoomBehavior`         | boolean                            | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
+| `hasFlatData`          | boolean                            | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
+| `hasPanAndZoom`        | boolean                            | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
 | `nodeWidth`            | number                             | 160                     | Width of a node in px                                                                                                                                                              |
 | `nodeHeight`           | number                             | 100                     | Height of a node in px                                                                                                                                                             |
-| `nodeColor`            | function                           | (nodeData) => "#2196f3" | Color of the node                                                                                                                                                                  |
 | `linkColor`            | function                           | (nodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
 | `linkWidth`            | function                           | (nodeData) => 10        | Width of the link                                                                                                                                                                  |
 | `linkShape`            | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"      | Shape of the link                                                                                                                                                                  |
-| `nodeTemplate`         | function                           | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
-| `horizontalLayout`     | boolean                            | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
+| `renderNode`           | function                           | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
+| `isHorizontal`         | boolean                            | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
 | `onNodeClick`          | function                           | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
 | `onNodeMouseEnter`     | function                           | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
 | `onNodeMouseLeave`     | function                           | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
@@ -93,7 +96,7 @@ The table below lists all the avalaible key that the config object can have
 
 ## Example
 
-Assuming that you already have an HTML element on the pagh with the tag `id="a_tree"`
+Assuming that you already have an HTML element on the page with the tag `id="a_tree"`
 
 #### Flat data case :
 

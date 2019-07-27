@@ -12,21 +12,20 @@ import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 
 export function create(userSettings: Partial<ITreeConfig>) {
   const defaultSettings: ITreeConfig = {
-    htmlID: "",
-    nodeField: "",
-    relationnalField: "",
-    flatData: true,
+    htmlId: "",
+    idKey: "",
+    relationnalField: "father",
+    hasFlatData: true,
     nodeWidth: 160,
     nodeHeight: 100,
-    nodeDepthDistance: 300,
-    nodeColor: () => "#2196f3",
-    nodeTemplate: () => "Node",
+    mainAxisNodeSpacing: 300,
+    renderNode: () => "Node",
     linkColor: () => "#ffcc80",
     linkWidth: () => 10,
     linkShape: "quadraticBeziers",
-    horizontalLayout: true,
-    zoomBehavior: false,
-    duration: 400,
+    isHorizontal: true,
+    hasPanAndZoom: false,
+    duration: 600,
     onNodeClick: () => undefined,
     onNodeMouseEnter: () => undefined,
     onNodeMouseLeave: () => undefined,
@@ -34,51 +33,50 @@ export function create(userSettings: Partial<ITreeConfig>) {
     marginLeft: 0,
     marginRight: 0,
     marginTop: 0,
-    nodeSpacerPercentage: 1.25,
+    secondaryAxisNodeSpacing: 1.25,
   };
-  const settings: ITreeConfig = { ...defaultSettings, ...userSettings };
-  let oldPosition: Array<{ x0?: number; y0?: number; id?: string }> = [];
+  let settings: ITreeConfig = {
+    ...defaultSettings,
+    ...userSettings,
+  };
+  let oldNodes: ExtendedHierarchyPointNode[] = [];
 
   function draw(
     svg: Selection<SVGGElement, {}, HTMLElement, any>,
     computedTree: HierarchyPointNode<{}>
   ) {
     const nodes = computedTree.descendants() as ExtendedHierarchyPointNode[];
+
     const links = computedTree.descendants().slice(1);
 
-    const { nodeDepthDistance } = settings;
-    if (nodeDepthDistance !== "auto") {
+    const { mainAxisNodeSpacing: mainAxisNodeSpacing } = settings;
+    if (mainAxisNodeSpacing !== "auto") {
       // Normalize for fixed-depth.
       nodes.forEach((d: any) => {
-        d.y = d.depth * nodeDepthDistance;
+        d.y = d.depth * settings.nodeWidth * mainAxisNodeSpacing;
       });
     }
-
+     
     nodes.forEach((currentNode: ExtendedHierarchyPointNode) => {
-      currentNode.x0 = {
-        ...currentNode,
-        x0: undefined,
-        y0: undefined,
-        // @ts-ignore
-        ...oldPosition.filter(oldNode => oldNode.id === currentNode.id)[0],
-      }.x0;
-      currentNode.y0 = {
-        ...currentNode,
-        x0: undefined,
-        y0: undefined,
-        // @ts-ignore
-        ...oldPosition.filter(oldNode => oldNode.id === currentNode.id)[0],
-      }.y0;
+      const currentNodeOldPosition = oldNodes.find(
+        node => node.id === currentNode.id
+      );
+      currentNode.x0 = currentNodeOldPosition
+        ? currentNodeOldPosition.x0
+        : currentNode.x;
+      currentNode.y0 = currentNodeOldPosition
+        ? currentNodeOldPosition.y0
+        : currentNode.y;
     });
 
     // ****************** Nodes section ***************************
     const node = svg.selectAll("g.node").data(nodes, (d: any) => {
-      return d[settings.nodeField];
+      return d[settings.idKey];
     });
 
-    const nodeEnter = drawNodeEnter(node, settings);
+    const nodeEnter = drawNodeEnter(node, settings, nodes, oldNodes);
     drawNodeUpdate(nodeEnter, node, settings);
-    drawNodeExit(node, settings);
+    drawNodeExit(node, settings, nodes, oldNodes);
 
     // ****************** links section ***************************
 
@@ -86,33 +84,36 @@ export function create(userSettings: Partial<ITreeConfig>) {
       return d.id;
     });
 
-    const linkEnter = drawLinkEnter(link, computedTree, settings);
+    const linkEnter = drawLinkEnter(link, settings, nodes, oldNodes);
     drawLinkUpdate(linkEnter, link, settings);
-    drawLinkExit(link, settings);
+    drawLinkExit(link, settings, nodes, oldNodes);
 
-    nodes.forEach((d: any, index: any) => {
-      oldPosition[index] = { x0: d.x, y0: d.y, id: d.id };
-    });
+    oldNodes = [ ...nodes ];
+
   }
 
-  function refresh(data: any) {
+  function refresh(data: any, newSettings?: Partial<ITreeConfig>) {
+    if (newSettings) {
+      settings = { ...settings, ...newSettings };
+    }
     const nestedData = generateNestedData(data, settings);
     const treemap = generateBasicTreemap(settings);
     const computedTree = treemap(nestedData); // mutation
+
     // @ts-ignore
     draw(svg, computedTree);
   }
 
   function clean(keepConfig: boolean) {
     const myNode = keepConfig
-      ? document.querySelector(`#${settings.htmlID} svg g`)
-      : document.querySelector(`#${settings.htmlID}`);
+      ? document.querySelector(`#${settings.htmlId} svg g`)
+      : document.querySelector(`#${settings.htmlId}`);
     if (myNode) {
       while (myNode.firstChild) {
         myNode.removeChild(myNode.firstChild);
       }
     }
-    oldPosition = [];
+    oldNodes = [];
   }
 
   const treeObject = { refresh, clean };
@@ -120,3 +121,4 @@ export function create(userSettings: Partial<ITreeConfig>) {
   const svg = initiliazeSVG(settings);
   return treeObject;
 }
+
