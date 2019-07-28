@@ -21,7 +21,11 @@ Also, but not recommended, you can use : `<script src="https://rawgit.com/Pierre
 
 ## Usage
 
-#### Basic example
+#### React
+
+Check the treeviz wrapper for react: [treeviz-react](https://github.com/PierreCapo/treeviz-react)
+
+#### Vanilla JavaScript
 
 ```HTML
 // Define a tree element where dimensions are mandatory
@@ -60,65 +64,6 @@ myTree.refresh(data_update2);
 
 The tree will be clever enough to updates only the part of the trees that have been added or removed in the dataset, and so it won't redraw the entire tree.
 
-## API
-
-The big part of the API is configuring the tree before passing data to it :
-
-```JS
-Treeviz.create(config);
-```
-
-The table below lists all the avalaible key that the config object can have
-
-| Key                    | Type                               | Default                 | Definition                                                                                                                                                                         |
-| ---------------------- | ---------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `htmlID`               | string (Required)                  |                         | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
-| `nodeField`            | string                             | "id"                    | The unique identifier field in the dataset representing the node                                                                                                                   |
-| `relationnalField`     | string                             | "father"                | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
-| `hasFlatData`          | boolean                            | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
-| `hasPanAndZoom`        | boolean                            | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
-| `nodeWidth`            | number                             | 160                     | Width of a node in px                                                                                                                                                              |
-| `nodeHeight`           | number                             | 100                     | Height of a node in px                                                                                                                                                             |
-| `linkColor`            | function                           | (nodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
-| `linkWidth`            | function                           | (nodeData) => 10        | Width of the link                                                                                                                                                                  |
-| `linkShape`            | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"      | Shape of the link                                                                                                                                                                  |
-| `renderNode`           | function                           | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
-| `isHorizontal`         | boolean                            | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
-| `onNodeClick`          | function                           | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
-| `onNodeMouseEnter`     | function                           | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
-| `onNodeMouseLeave`     | function                           | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
-| `nodeDepthDistance`    | number or "auto"                   | 300                     | Set the distance in pixels between two depths in the tree. If the value is `auto` it will automatically display the tree to fit the size of the container.                         |
-| `nodeSpacerPercentage` | number                             | 1.25                    | Set the distance between nodes in the same level as a coefficient of node dimensions. Recommended to have the value superior to 1                                                  |
-| `marginTop`            | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-| `marginBottom`         | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-| `marginLeft`           | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-| `marginRight`          | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-
-## Example
-
-Assuming that you already have an HTML element on the page with the tag `id="a_tree"`
-
-#### Flat data case :
-
-```js
-var flat_data_example = [
-  { id: 0, node_name: "Root node", father: null, number: 10 },
-  { id: 1, node_name: "Child A", father: 0, number: 5 },
-  { id: 2, node_name: "Child B", father: 0, number: 3 },
-  { id: 3, node_name: "Child C", father: 0, number: 2 },
-];
-
-var myTree = Treeviz.create({
-  htmlID: "tree",
-  nodeField: "id",
-  flatData: true,
-  relationnalField: "father",
-  onNodeClick: nodeData => console.log("you clicked me!"),
-});
-
-myTree.refresh(flat_data_example);
-```
-
 #### Hierarchical data case :
 
 ```js
@@ -137,6 +82,40 @@ var myTree = Treeviz.create({
 
 myTree.refresh(hierarchical_data_example);
 ```
+
+## API
+
+The big part of the API is configuring the tree before passing data to it :
+
+```JS
+Treeviz.create(config);
+```
+
+The table below lists all the avalaible key that the config object can have
+
+| Key                        | Type                               | Default                 | Definition                                                                                                                                                                         |
+| -------------------------- | ---------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `htmlID`                   | string (Required)                  |                         | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
+| `nodeField`                | string                             | "id"                    | The unique identifier field in the dataset representing the node                                                                                                                   |
+| `relationnalField`         | string                             | "father"                | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
+| `hasFlatData`              | boolean                            | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
+| `hasPanAndZoom`            | boolean                            | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
+| `nodeWidth`                | number                             | 160                     | Width of a node in px                                                                                                                                                              |
+| `nodeHeight`               | number                             | 100                     | Height of a node in px                                                                                                                                                             |
+| `linkColor`                | function                           | (nodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
+| `linkWidth`                | function                           | (nodeData) => 10        | Width of the link                                                                                                                                                                  |
+| `linkShape`                | "quadraticBeziers" \| "orthogonal" | "quadraticBeziers"      | Shape of the link                                                                                                                                                                  |
+| `renderNode`               | function                           | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
+| `isHorizontal`             | boolean                            | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
+| `onNodeClick`              | function                           | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
+| `onNodeMouseEnter`         | function                           | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
+| `onNodeMouseLeave`         | function                           | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
+| `mainAxisNodeSpacing`      | number or "auto"                   | 300                     | Set the distance in pixels between two depths in the tree. If the value is `auto` it will automatically display the tree to fit the size of the container.                         |
+| `secondaryAxisNodeSpacing` | number                             | 1.25                    | Set the distance between nodes in the same level as a coefficient of node dimensions. Recommended to have the value superior to 1                                                  |
+| `marginTop`                | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
+| `marginBottom`             | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
+| `marginLeft`               | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
+| `marginRight`              | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 
 ## Credits
 
