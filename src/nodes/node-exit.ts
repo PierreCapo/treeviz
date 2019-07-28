@@ -6,7 +6,7 @@ export const drawNodeExit = (
   node: Selection<BaseType, ExtendedHierarchyPointNode, SVGGElement, {}>,
   settings: ITreeConfig,
   nodes: ExtendedHierarchyPointNode[],
-  oldNodes:ExtendedHierarchyPointNode[],
+  oldNodes: ExtendedHierarchyPointNode[]
 ) => {
   const nodeExit = node
     .exit()
@@ -14,8 +14,16 @@ export const drawNodeExit = (
     .duration(settings.duration)
     .style("opacity", 0)
     .attr("transform", (d: any) => {
-      const firstDisplayedParentNode = getFirstDisplayedAncestor(oldNodes, nodes, d.id)
-      return setNodeLocation(firstDisplayedParentNode.x0, firstDisplayedParentNode.y0, settings)
+      const firstDisplayedParentNode = getFirstDisplayedAncestor(
+        oldNodes,
+        nodes,
+        d.id
+      );
+      return setNodeLocation(
+        firstDisplayedParentNode.x0,
+        firstDisplayedParentNode.y0,
+        settings
+      );
     })
     .remove();
 

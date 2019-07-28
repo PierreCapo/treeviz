@@ -56,7 +56,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
         d.y = d.depth * settings.nodeWidth * mainAxisNodeSpacing;
       });
     }
-     
+
     nodes.forEach((currentNode: ExtendedHierarchyPointNode) => {
       const currentNodeOldPosition = oldNodes.find(
         node => node.id === currentNode.id
@@ -88,8 +88,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
     drawLinkUpdate(linkEnter, link, settings);
     drawLinkExit(link, settings, nodes, oldNodes);
 
-    oldNodes = [ ...nodes ];
-
+    oldNodes = [...nodes];
   }
 
   function refresh(data: any, newSettings?: Partial<ITreeConfig>) {
@@ -121,4 +120,3 @@ export function create(userSettings: Partial<ITreeConfig>) {
   const svg = initiliazeSVG(settings);
   return treeObject;
 }
-

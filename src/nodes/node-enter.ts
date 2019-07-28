@@ -6,16 +6,23 @@ export const drawNodeEnter = (
   node: Selection<BaseType, ExtendedHierarchyPointNode, SVGGElement, {}>,
   settings: ITreeConfig,
   nodes: ExtendedHierarchyPointNode[],
-  oldNodes:ExtendedHierarchyPointNode[],
-
+  oldNodes: ExtendedHierarchyPointNode[]
 ) => {
   const nodeEnter = node
     .enter()
     .append("g")
     .attr("class", "node")
     .attr("transform", (d: any) => {
-      const firstDisplayedParentNode = getFirstDisplayedAncestor(nodes, oldNodes, d.id)
-      return setNodeLocation(firstDisplayedParentNode.x0, firstDisplayedParentNode.y0, settings)
+      const firstDisplayedParentNode = getFirstDisplayedAncestor(
+        nodes,
+        oldNodes,
+        d.id
+      );
+      return setNodeLocation(
+        firstDisplayedParentNode.x0,
+        firstDisplayedParentNode.y0,
+        settings
+      );
     });
 
   nodeEnter
@@ -25,5 +32,3 @@ export const drawNodeEnter = (
 
   return nodeEnter;
 };
-
-
