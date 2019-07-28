@@ -21,7 +21,11 @@ Also, but not recommended, you can use : `<script src="https://rawgit.com/Pierre
 
 ## Usage
 
-#### Basic example
+#### React
+
+Check the treeviz wrapper for react: [treeviz-react](https://github.com/PierreCapo/treeviz-react)
+
+#### Vanilla JavaScript
 
 ```HTML
 // Define a tree element where dimensions are mandatory
@@ -60,6 +64,25 @@ myTree.refresh(data_update2);
 
 The tree will be clever enough to updates only the part of the trees that have been added or removed in the dataset, and so it won't redraw the entire tree.
 
+#### Hierarchical data case :
+
+```js
+var hierarchical_data_example = {
+  name: "Mom",
+  qty: 10,
+  children: [{ name: "Son A", qty: 3 }, { name: "Son B", qty: 7 }],
+};
+
+var myTree = Treeviz.create({
+  htmlID: "tree",
+  nodeField: "name",
+  flatData: false,
+  relationnalField: "children",
+});
+
+myTree.refresh(hierarchical_data_example);
+```
+
 ## API
 
 The big part of the API is configuring the tree before passing data to it :
@@ -87,56 +110,12 @@ The table below lists all the avalaible key that the config object can have
 | `onNodeClick`          | function                           | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
 | `onNodeMouseEnter`     | function                           | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
 | `onNodeMouseLeave`     | function                           | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
-| `nodeDepthDistance`    | number or "auto"                   | 300                     | Set the distance in pixels between two depths in the tree. If the value is `auto` it will automatically display the tree to fit the size of the container.                         |
-| `nodeSpacerPercentage` | number                             | 1.25                    | Set the distance between nodes in the same level as a coefficient of node dimensions. Recommended to have the value superior to 1                                                  |
+| `mainAxisNodeSpacing`    | number or "auto"                   | 300                     | Set the distance in pixels between two depths in the tree. If the value is `auto` it will automatically display the tree to fit the size of the container.                         |
+| `secondaryAxisNodeSpacing` | number                             | 1.25                    | Set the distance between nodes in the same level as a coefficient of node dimensions. Recommended to have the value superior to 1                                                  |
 | `marginTop`            | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginBottom`         | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginLeft`           | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginRight`          | number                             | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-
-## Example
-
-Assuming that you already have an HTML element on the page with the tag `id="a_tree"`
-
-#### Flat data case :
-
-```js
-var flat_data_example = [
-  { id: 0, node_name: "Root node", father: null, number: 10 },
-  { id: 1, node_name: "Child A", father: 0, number: 5 },
-  { id: 2, node_name: "Child B", father: 0, number: 3 },
-  { id: 3, node_name: "Child C", father: 0, number: 2 },
-];
-
-var myTree = Treeviz.create({
-  htmlID: "tree",
-  nodeField: "id",
-  flatData: true,
-  relationnalField: "father",
-  onNodeClick: nodeData => console.log("you clicked me!"),
-});
-
-myTree.refresh(flat_data_example);
-```
-
-#### Hierarchical data case :
-
-```js
-var hierarchical_data_example = {
-  name: "Mom",
-  qty: 10,
-  children: [{ name: "Son A", qty: 3 }, { name: "Son B", qty: 7 }],
-};
-
-var myTree = Treeviz.create({
-  htmlID: "tree",
-  nodeField: "name",
-  flatData: false,
-  relationnalField: "children",
-});
-
-myTree.refresh(hierarchical_data_example);
-```
 
 ## Credits
 
