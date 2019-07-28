@@ -6,10 +6,10 @@ import { getAreaSize } from "./utils";
 
 export const initiliazeSVG = (treeConfig: ITreeConfig) => {
   const {
-    htmlID,
-    horizontalLayout,
-    zoomBehavior,
-    nodeDepthDistance,
+    htmlId,
+    isHorizontal,
+    hasPanAndZoom,
+    mainAxisNodeSpacing,
     nodeHeight,
     nodeWidth,
     marginBottom,
@@ -23,7 +23,7 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     bottom: marginBottom,
     left: marginLeft,
   };
-  const { areaHeight, areaWidth } = getAreaSize(treeConfig.htmlID);
+  const { areaHeight, areaWidth } = getAreaSize(treeConfig.htmlId);
   const width = areaWidth - margin.left - margin.right;
   const height = areaHeight - margin.top - margin.bottom;
 
@@ -32,7 +32,7 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     .scaleExtent([0.2, 20])
     .on("zoom", () => {
       svg.attr("transform", () => {
-        return nodeDepthDistance === "auto"
+        return mainAxisNodeSpacing === "auto"
           ? "translate(" +
               (margin.left + d3.event.transform.x) +
               "," +
@@ -41,7 +41,7 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
               "scale(" +
               d3.event.transform.k +
               ")"
-          : horizontalLayout
+          : isHorizontal
           ? "translate(" +
             (margin.left + d3.event.transform.x) +
             "," +
@@ -62,18 +62,18 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     });
 
   const svg = d3
-    .select("#" + htmlID)
+    .select("#" + htmlId)
     .append("svg")
     .attr("width", areaWidth)
     .attr("height", areaHeight)
     // @ts-ignore
-    .call(zoomBehavior ? zoom : () => this)
+    .call(hasPanAndZoom ? zoom : () => this)
     .append("g")
     .attr(
       "transform",
-      nodeDepthDistance === "auto"
+      mainAxisNodeSpacing === "auto"
         ? "translate(0,0)"
-        : horizontalLayout
+        : isHorizontal
         ? "translate(" +
           margin.left +
           "," +

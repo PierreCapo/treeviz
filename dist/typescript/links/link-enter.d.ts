@@ -1,4 +1,4 @@
 import { HierarchyPointNode } from "d3-hierarchy";
 import { BaseType, Selection } from "d3-selection";
-import { ITreeConfig } from "../typings";
-export declare const drawLinkEnter: (link: Selection<BaseType, HierarchyPointNode<{}>, SVGGElement, {}>, computedTree: HierarchyPointNode<{}>, settings: ITreeConfig) => Selection<SVGPathElement, HierarchyPointNode<{}>, SVGGElement, {}>;
+import { ITreeConfig, ExtendedHierarchyPointNode } from "../typings";
+export declare const drawLinkEnter: (link: Selection<BaseType, HierarchyPointNode<{}>, SVGGElement, {}>, settings: ITreeConfig, nodes: ExtendedHierarchyPointNode[], oldNodes: ExtendedHierarchyPointNode[]) => Selection<SVGPathElement, HierarchyPointNode<{}>, SVGGElement, {}>;

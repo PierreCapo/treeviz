@@ -10,9 +10,9 @@ export const generateLinkLayout = (
   d: ICoordinates,
   treeConfig: ITreeConfig
 ): string => {
-  const { horizontalLayout, nodeHeight, nodeWidth, linkShape } = treeConfig;
+  const { isHorizontal, nodeHeight, nodeWidth, linkShape } = treeConfig;
   if (linkShape === "orthogonal") {
-    if (horizontalLayout) {
+    if (isHorizontal) {
       return `M ${s.y} ${s.x + nodeHeight / 2}
         L ${(s.y + d.y + nodeWidth) / 2} ${s.x + nodeHeight / 2},
         L  ${(s.y + d.y + nodeWidth) / 2} ${d.x + nodeHeight / 2},
@@ -24,7 +24,7 @@ export const generateLinkLayout = (
           ${d.x + nodeWidth / 2} ${d.y + nodeHeight} `;
     }
   } else {
-    if (horizontalLayout) {
+    if (isHorizontal) {
       return `M ${s.y} ${s.x + nodeHeight / 2}
         C ${(s.y + d.y + nodeWidth) / 2} ${s.x + nodeHeight / 2},
           ${(s.y + d.y + nodeWidth) / 2} ${d.x + nodeHeight / 2},

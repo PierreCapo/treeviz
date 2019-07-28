@@ -1,18 +1,29 @@
 import { BaseType, Selection } from "d3-selection";
 import { ExtendedHierarchyPointNode, ITreeConfig } from "../typings";
+import { getFirstDisplayedAncestor, setNodeLocation } from "../utils";
 
 export const drawNodeExit = (
   node: Selection<BaseType, ExtendedHierarchyPointNode, SVGGElement, {}>,
-  settings: ITreeConfig
+  settings: ITreeConfig,
+  nodes: ExtendedHierarchyPointNode[],
+  oldNodes: ExtendedHierarchyPointNode[]
 ) => {
   const nodeExit = node
     .exit()
     .transition()
     .duration(settings.duration)
+    .style("opacity", 0)
     .attr("transform", (d: any) => {
-      return settings.horizontalLayout
-        ? "translate(" + d.ancestors()[1].y0 + "," + d.ancestors()[1].x0 + ")"
-        : "translate(" + d.ancestors()[1].x0 + "," + d.ancestors()[1].y0 + ")";
+      const firstDisplayedParentNode = getFirstDisplayedAncestor(
+        oldNodes,
+        nodes,
+        d.id
+      );
+      return setNodeLocation(
+        firstDisplayedParentNode.x0,
+        firstDisplayedParentNode.y0,
+        settings
+      );
     })
     .remove();
 

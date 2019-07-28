@@ -1,29 +1,28 @@
 import { HierarchyPointNode } from "d3-hierarchy";
 
 export interface ITreeConfig {
-  htmlID: string;
-  nodeField: string;
+  htmlId: string;
+  idKey: string;
   relationnalField: string;
-  flatData: boolean;
+  hasFlatData: boolean;
   nodeWidth: number;
   nodeHeight: number;
-  nodeDepthDistance: number | "auto";
-  nodeTemplate: (node: any) => string | null;
-  nodeColor: (node: any) => string | null | number | boolean;
+  mainAxisNodeSpacing: number | "auto";
+  renderNode: (node: any) => string | null;
   linkShape: string;
-  linkColor: (node: any) => string | null | boolean;
-  linkWidth: (node: any) => string | number | null | boolean;
+  linkColor: (node: any) => string;
+  linkWidth: (node: any) => number;
   onNodeClick: (node: any) => void;
   onNodeMouseEnter: (node: any) => void;
   onNodeMouseLeave: (node: any) => void;
-  horizontalLayout: boolean;
-  zoomBehavior: boolean;
+  isHorizontal: boolean;
+  hasPanAndZoom: boolean;
   duration: number;
   marginTop: number;
   marginBottom: number;
   marginLeft: number;
   marginRight: number;
-  nodeSpacerPercentage: number;
+  secondaryAxisNodeSpacing: number;
 }
 
 export interface ExtendedHierarchyPointNode extends HierarchyPointNode<{}> {
