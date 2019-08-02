@@ -9,7 +9,7 @@ export interface ITreeConfig {
   nodeHeight: number;
   mainAxisNodeSpacing: number | "auto";
   renderNode: (node: any) => string | null;
-  linkShape: string;
+  linkShape?: "quadraticBeziers" | "curve" | "orthogonal" | "";
   linkColor: (node: any) => string;
   linkWidth: (node: any) => number;
   onNodeClick: (node: any) => void;
