@@ -50,7 +50,7 @@
         nodeWidth:120,
         nodeHeight:80,
         mainAxisNodeSpacing:2,
-        isHorizontal:true,
+        isHorizontal:false,
         renderNode: function(node) { 
         return result = "<div class='box' style='cursor:pointer;height:"+node.settings.nodeHeight+"px; width:"+node.settings.nodeWidth+"px;display:flex;flex-direction:column;justify-content:center;align-items:center;background-color:"
                 +node.data.color+
@@ -60,7 +60,8 @@
           +node.data.text_2+
           "</i></div></div>";
         },
-        linkWidth : (nodeData)=> nodeData.id*5,
+        linkWidth : (nodeData)=> 5,
+        linkShape:"curve",
         linkColor : (nodeData) => "#B0BEC5" ,
         onNodeClick : (nodeData) => console.log(nodeData)
     });
