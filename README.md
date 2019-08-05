@@ -45,7 +45,7 @@ var data = [
 // Define and configure a tree object
 var myTree = Treeviz.create({
   htmlID: "tree",
-  nodeField: "id",
+  idKey: "id",
   flatData: true,
   nodeColor: (nodeData) => "grey",
   relationnalField: "father",
@@ -79,7 +79,7 @@ var hierarchical_data_example = {
 
 var myTree = Treeviz.create({
   htmlID: "tree",
-  nodeField: "name",
+  idKey: "name",
   flatData: false,
   relationnalField: "children",
 });
@@ -100,7 +100,7 @@ The table below lists all the avalaible key that the config object can have
 | Key                        | Type                                          | Default                 | Definition                                                                                                                                                                         |
 | -------------------------- | --------------------------------------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `htmlID`                   | string (Required)                             |                         | The HTML id tag on the page where the tree should be drawn. It must have a width and an height specified                                                                           |
-| `nodeField`                | string                                        | "id"                    | The unique identifier field in the dataset representing the node                                                                                                                   |
+| `idKey`                | string                                        | "id"                    | The key in a data item representing the unique identifier of a node                                                                                                                   |
 | `relationnalField`         | string                                        | "father"                | In case of flat dataset, usually the relationnal field between each node is the field representing the father of the node, linking it to the id of the field. (See example below). |
 | `hasFlatData`              | boolean                                       | true                    | Specify whether the data passed to the tree is flat or already hierarchical                                                                                                        |
 | `hasPanAndZoom`            | boolean                                       | true                    | Toggle the ability to pan and zoom the tree                                                                                                                                        |
