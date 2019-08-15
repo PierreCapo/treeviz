@@ -1,9 +1,9 @@
 import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 
-export const getAreaSize = (htmlID: string) => {
-  const SVGContainer = document.querySelector(`#${htmlID}`);
+export const getAreaSize = (htmlId: string) => {
+  const SVGContainer = document.querySelector(`#${htmlId}`);
   if (SVGContainer === null) {
-    throw new Error(`Cannot find dom element with id:${htmlID}`);
+    throw new Error(`Cannot find dom element with id:${htmlId}`);
   }
   const areaWidth = SVGContainer.clientWidth;
   const areaHeight = SVGContainer.clientHeight;

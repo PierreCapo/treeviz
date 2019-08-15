@@ -1,4 +1,4 @@
-export declare const getAreaSize: (htmlID: string) => {
+export declare const getAreaSize: (htmlId: string) => {
     areaWidth: number;
     areaHeight: number;
 };
