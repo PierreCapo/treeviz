@@ -13,7 +13,7 @@ import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 export function create(userSettings: Partial<ITreeConfig>) {
   const defaultSettings: ITreeConfig = {
     htmlId: "",
-    idKey: "",
+    idKey: "id",
     relationnalField: "father",
     hasFlatData: true,
     nodeWidth: 160,
@@ -39,6 +39,11 @@ export function create(userSettings: Partial<ITreeConfig>) {
     ...defaultSettings,
     ...userSettings,
   };
+  if (typeof userSettings.hasPanAndZoom !== "undefined") {
+    console.warn(
+      "[DEPRECATED] hasPanAndZoom is deprecated and will be removed in treeviz version 3. Use hasPan and hasZoom instead"
+    );
+  }
   let oldNodes: ExtendedHierarchyPointNode[] = [];
 
   function draw(

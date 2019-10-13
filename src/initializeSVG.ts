@@ -9,6 +9,8 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     htmlId,
     isHorizontal,
     hasPanAndZoom,
+    hasPan,
+    hasZoom,
     mainAxisNodeSpacing,
     nodeHeight,
     nodeWidth,
@@ -36,10 +38,30 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
       // @ts-ignore
       customD3
         .zoom()
-        .on("zoom", () =>
-          hasPanAndZoom ? ZoomG.attr("transform", d3.event.transform) : null
-        )
+        .on("zoom", () => ZoomG.attr("transform", d3.event.transform))
     );
+  const [allowHasPan, allowHasZoom] = getHasPanAndZoom(
+    hasPanAndZoom,
+    hasPan,
+    hasZoom
+  );
+
+  if (!allowHasPan) {
+    svg
+      .on("mousedown.zoom", null)
+      .on("touchstart.zoom", null)
+      .on("touchmove.zoom", null)
+      .on("touchend.zoom", null);
+  }
+
+  if (!allowHasZoom) {
+    svg
+      .on("wheel.zoom", null)
+      .on("mousewheel.zoom", null)
+      .on("mousemove.zoom", null)
+      .on("DOMMouseScroll.zoom", null)
+      .on("dblclick.zoom", null);
+  }
 
   const ZoomG = svg.append("g");
   const MainG = ZoomG.append("g").attr(
@@ -59,4 +81,18 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
         ")"
   );
   return MainG;
+};
+
+const getHasPanAndZoom = (
+  hasPanAndZoom?: boolean,
+  hasPan?: boolean,
+  hasZoom?: boolean
+): [boolean, boolean] => {
+  let hasPanAndZoomResult: [boolean, boolean] = [false, false];
+  if (hasPanAndZoom === true || hasPanAndZoom === false) {
+    hasPanAndZoomResult = [hasPanAndZoom, hasPanAndZoom];
+  }
+  if (hasPan === true || hasPan === false) hasPanAndZoomResult[0] = hasPan;
+  if (hasZoom === true || hasZoom === false) hasPanAndZoomResult[1] = hasZoom;
+  return hasPanAndZoomResult;
 };

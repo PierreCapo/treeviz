@@ -16,6 +16,8 @@ export interface ITreeConfig {
     onNodeMouseLeave: (node: any) => void;
     isHorizontal: boolean;
     hasPanAndZoom: boolean;
+    hasPan?: boolean;
+    hasZoom?: boolean;
     duration: number;
     marginTop: number;
     marginBottom: number;
