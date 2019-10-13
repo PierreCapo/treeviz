@@ -13,7 +13,7 @@ import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
 export function create(userSettings: Partial<ITreeConfig>) {
   const defaultSettings: ITreeConfig = {
     htmlId: "",
-    idKey: "",
+    idKey: "id",
     relationnalField: "father",
     hasFlatData: true,
     nodeWidth: 160,
