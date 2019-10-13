@@ -39,6 +39,11 @@ export function create(userSettings: Partial<ITreeConfig>) {
     ...defaultSettings,
     ...userSettings,
   };
+  if (typeof userSettings.hasPanAndZoom !== "undefined") {
+    console.warn(
+      "[DEPRECATED] hasPanAndZoom is deprecated and will be removed in treeviz version 3. Use hasPan and hasZoom instead"
+    );
+  }
   let oldNodes: ExtendedHierarchyPointNode[] = [];
 
   function draw(
