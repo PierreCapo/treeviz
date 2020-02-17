@@ -16,5 +16,8 @@ export const drawLinkUpdate = (
     .duration(settings.duration)
     .attr("d", (d: any) => {
       return generateLinkLayout(d, d.parent, settings);
-    });
+    })
+    .attr("fill", "none")
+    .attr("stroke-width", ({ data }: { data: any }) => settings.linkWidth(data))
+    .attr("stroke", ({ data }: { data: any }) => settings.linkColor(data));
 };

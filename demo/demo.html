@@ -63,7 +63,7 @@
         },
         linkWidth : (nodeData)=> 5,
         linkShape:"curve",
-        linkColor : (nodeData) => "#B0BEC5" ,
+        linkColor : (nodeData) => nodeData.linkColor || "#B0BEC5",
         onNodeClick : (nodeData) => console.log(nodeData)
     });
     myTree.refresh(data_1);
