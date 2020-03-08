@@ -25,7 +25,7 @@ Also, but not recommended, you can use : `<script src="https://rawgit.com/Pierre
 
 #### React
 
-Check the treeviz wrapper for react: [treeviz-react](https://github.com/PierreCapo/treeviz-react)
+Check the treeviz wrapper for react: [treeviz-react](./treeviz-react)
 
 #### Vanilla JavaScript
 
@@ -74,7 +74,10 @@ The tree will be clever enough to updates only the part of the trees that have b
 var hierarchical_data_example = {
   name: "Mom",
   qty: 10,
-  children: [{ name: "Son A", qty: 3 }, { name: "Son B", qty: 7 }],
+  children: [
+    { name: "Son A", qty: 3 },
+    { name: "Son B", qty: 7 },
+  ],
 };
 
 var myTree = Treeviz.create({
