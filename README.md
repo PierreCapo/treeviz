@@ -46,7 +46,7 @@ var data = [
 var myTree = Treeviz.create({
   htmlId: "tree",
   idKey: "id",
-  flatData: true,
+  hasFlatData: true,
   nodeColor: (nodeData) => "grey",
   relationnalField: "father",
 });
@@ -83,7 +83,7 @@ var hierarchical_data_example = {
 var myTree = Treeviz.create({
   htmlId: "tree",
   idKey: "name",
-  flatData: false,
+  hasFlatData: false,
   relationnalField: "children",
 });
 
