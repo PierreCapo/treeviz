@@ -9,6 +9,7 @@ import { drawNodeExit } from "./nodes/node-exit";
 import { drawNodeUpdate } from "./nodes/node-update";
 import { generateBasicTreemap, generateNestedData } from "./prepare-data";
 import { ExtendedHierarchyPointNode, ITreeConfig } from "./typings";
+import { RefreshQueue } from "./utils";
 
 export function create(userSettings: Partial<ITreeConfig>) {
   const defaultSettings: ITreeConfig = {
@@ -97,15 +98,17 @@ export function create(userSettings: Partial<ITreeConfig>) {
   }
 
   function refresh(data: any, newSettings?: Partial<ITreeConfig>) {
-    if (newSettings) {
-      settings = { ...settings, ...newSettings };
-    }
-    const nestedData = generateNestedData(data, settings);
-    const treemap = generateBasicTreemap(settings);
-    const computedTree = treemap(nestedData); // mutation
+    RefreshQueue.add(settings.duration, ()=> {
+      if (newSettings) {
+        settings = { ...settings, ...newSettings };
+      }
+      const nestedData = generateNestedData(data, settings);
+      const treemap = generateBasicTreemap(settings);
+      const computedTree = treemap(nestedData); // mutation
 
-    // @ts-ignore
-    draw(svg, computedTree);
+      // @ts-ignore
+      draw(svg, computedTree);
+    });
   }
 
   function clean(keepConfig: boolean) {
