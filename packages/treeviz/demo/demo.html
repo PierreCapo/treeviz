@@ -9,6 +9,7 @@
 
     <input type="button" id="add" value="Add data" style="font-size:35px;"></input>
     <input type="button" id="remove" value="Remove data"style="font-size:35px;"></input>
+    <input type="button" id="doTasks" value="Edit data multiple times" style="font-size:35px;"></input>
 
     <div id="tree" style="height:800px;width:1000px"></div>
 
@@ -67,9 +68,31 @@
         onNodeClick : (nodeData) => console.log(nodeData)
     });
     myTree.refresh(data_1);
-    var toggle=true;
-    document.querySelector("#add").addEventListener("click", () => {toggle ? myTree.refresh(data_2) : myTree.refresh(data_3); toggle = false});
-    document.querySelector("#remove").addEventListener("click", () => myTree.refresh(data_1));
+    let toggle=true;
+    let addButton = document.querySelector("#add");
+    let removeButton = document.querySelector("#remove");
+    let doTasksButton = document.querySelector("#doTasks")
+    addButton.addEventListener("click", () => {
+      console.log('addButton clicked');
+      toggle ? myTree.refresh(data_2) : myTree.refresh(data_3); toggle = false;
+    });
+    removeButton.addEventListener("click", () => {
+      console.log('removeButton clicked');
+      myTree.refresh(data_1);
+    });
+    doTasksButton.addEventListener("click", () => {
+      addButton.click();
+      removeButton.click();
+      addButton.click();
+      removeButton.click();
+      removeButton.click();
+      addButton.click();
+      removeButton.click();
+      addButton.click();
+      addButton.click();
+      removeButton.click();
+      removeButton.click();
+    });
 
 </script>
 <style>
