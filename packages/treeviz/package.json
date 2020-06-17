@@ -18,12 +18,17 @@
   "license": "BSD-3-Clause",
   "main": "./dist/index.js",
   "types": "./dist/typescript/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "webpack --mode=production",
     "watch": "webpack --mode=development --watch",
     "dev": "webpack-dev-server  --mode=development",
     "test": "jest",
-    "lint": "tslint src/*.ts"
+    "lint": "tslint src/*.ts",
+    "prepare": "webpack --mode=production"
   },
   "devDependencies": {
     "@babel/core": "^7.6.4",
