@@ -124,7 +124,7 @@ The table below lists all the avalaible key that the config object can have
 | `marginBottom`             | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginLeft`               | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginRight`              | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
-| `duration`              | number                                        | 1.25                    | The duration of the animation transition between layouts                                                                                                                                |
+| `duration`              | number                                        | 600                    | The duration of the animation transition between layouts                                                                                                                                |
 ## Credits
 
 This module is based on d3 library, credit to all the contributors of this project.
