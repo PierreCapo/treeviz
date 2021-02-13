@@ -14,6 +14,7 @@ export const drawNodeUpdate = (
   // @ts-ignore
   const nodeUpdate = nodeEnter.merge(node);
   nodeUpdate
+    // @ts-ignore
     .transition()
     .duration(settings.duration)
     .attr("transform", (d: any) => {
@@ -30,5 +31,5 @@ export const drawNodeUpdate = (
     .on("click", settings.onNodeClick)
     .on("mouseenter", settings.onNodeMouseEnter)
     .on("mouseleave", settings.onNodeMouseLeave)
-    .html(d => settings.renderNode({ ...d, settings }));
+    .html((d) => settings.renderNode({ ...d, settings }));
 };

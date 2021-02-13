@@ -12,6 +12,7 @@ export const drawLinkExit = (
 ) => {
   link
     .exit()
+    // @ts-ignore
     .transition()
     .duration(settings.duration)
     .style("opacity", 0)

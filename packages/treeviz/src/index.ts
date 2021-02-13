@@ -65,7 +65,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
 
     nodes.forEach((currentNode: ExtendedHierarchyPointNode) => {
       const currentNodeOldPosition = oldNodes.find(
-        node => node.id === currentNode.id
+        (node) => node.id === currentNode.id
       );
       currentNode.x0 = currentNodeOldPosition
         ? currentNodeOldPosition.x0
@@ -98,7 +98,7 @@ export function create(userSettings: Partial<ITreeConfig>) {
   }
 
   function refresh(data: any, newSettings?: Partial<ITreeConfig>) {
-    RefreshQueue.add(settings.duration, ()=> {
+    RefreshQueue.add(settings.duration, () => {
       if (newSettings) {
         settings = { ...settings, ...newSettings };
       }

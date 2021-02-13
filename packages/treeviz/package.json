@@ -1,6 +1,6 @@
 {
   "name": "treeviz",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "description": "Library which aims to represent trees for data visualization",
   "keywords": [
     "d3",
@@ -23,38 +23,26 @@
     "src"
   ],
   "scripts": {
-    "build": "webpack --mode=production",
-    "watch": "webpack --mode=development --watch",
-    "dev": "webpack-dev-server  --mode=development",
-    "test": "jest",
-    "lint": "tslint src/*.ts",
-    "prepare": "webpack --mode=production"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/preset-env": "^7.6.3",
-    "@babel/preset-typescript": "^7.6.0",
-    "@types/node": "^12.7.12",
-    "@types/webpack": "^4.39.3",
-    "@types/webpack-dev-server": "^3.1.7",
-    "babel-loader": "^8.0.6",
-    "html-webpack-plugin": "^3.2.0",
-    "ts-loader": "^6.2.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
-    "tslint-config-prettier": "^1.18.0",
-    "typescript": "^3.6.4",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.9",
-    "webpack-dev-server": "^3.8.2"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:typescript": "yarn tsc --p ./tsconfig.json",
+    "dev:typescript:watch": "yarn tsc --p ./tsconfig.json --watch",
+    "dev:parcel": "yarn parcel ./demo/index.html --global Treeviz",
+    "dev": "npm-run-all --sequential dev:typescript --parallel dev:typescript:watch dev:parcel",
+    "prod:build": "npm-run-all --sequential dev:typescript prod:parcel",
+    "prod:parcel": "yarn parcel build ./dist/javascript/index.js --global Treeviz"
   },
   "dependencies": {
-    "@types/d3-hierarchy": "^1.1.6",
-    "@types/d3-selection": "^1.4.1",
-    "@types/d3-transition": "^1.1.4",
-    "@types/d3-zoom": "^1.7.4",
-    "d3-hierarchy": "^1.1.8",
-    "d3-selection": "^1.4.0",
-    "d3-zoom": "^1.8.3"
+    "@types/d3-hierarchy": "^2.0.0",
+    "@types/d3-selection": "^2.0.0",
+    "@types/d3-zoom": "^2.0.0",
+    "d3-hierarchy": "^2.0.0",
+    "d3-selection": "^2.0.0",
+    "d3-zoom": "^2.0.0"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "parcel": "^1.12.4",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.5"
   }
 }

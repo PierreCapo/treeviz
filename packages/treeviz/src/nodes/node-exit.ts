@@ -10,6 +10,7 @@ export const drawNodeExit = (
 ) => {
   const nodeExit = node
     .exit()
+    // @ts-ignore
     .transition()
     .duration(settings.duration)
     .style("opacity", 0)

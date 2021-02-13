@@ -60,6 +60,6 @@
   },
   "dependencies": {
     "@storybook/addon-knobs": "^5.3.18",
-    "treeviz": "^2.2.1"
+    "treeviz": "2.3.0-beta.0"
   }
 }
