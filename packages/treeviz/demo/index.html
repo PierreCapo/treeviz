@@ -13,8 +13,13 @@
 
     <div id="tree" style="height:800px;width:1000px"></div>
 
-</body>
+<script type="text/javascript" src="../dist/javascript/index.js"></script></body>
 <script>
+    /* Uncomment this if you want to use UMD
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js" integrity="sha512-vRqhAr2wsn+/cSsyz80psBbCcqzz2GTuhGk3bq3dAyytz4J/8XwFqMjiAGFBj+WM95lHBJ9cDf87T3P8yMrY7A==" crossorigin="anonymous"></script>
+<script>
+require(["https://raw.githubusercontent.com/PierreCapo/treeviz/treeviz-update/packages/treeviz/dist/index.js"], (Treeviz) => { }; 
+*/
     var data_1 = [
         { id: 1, text_1: "Chaos", text_2: "Void", father: null, color:"#FF5722" },
         { id: 2, text_1: "Tartarus", text_2: "Abyss", father: 1, color:"#FFC107" },
@@ -49,7 +54,7 @@
         relationnalField: "father",
         nodeWidth:120,
         hasPan:true,
-        hasZoom: false,
+        hasZoom: true,
         nodeHeight:80,
         mainAxisNodeSpacing:2,
         isHorizontal:false,
@@ -98,6 +103,10 @@
 <style>
 *{
     font-family:"Roboto";
+}
+
+.graph-svg-component {
+    background-color:rebeccapurple;
 }
 </style>
 

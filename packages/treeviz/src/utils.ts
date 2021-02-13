@@ -24,12 +24,12 @@ export const getFirstDisplayedAncestor = (
 ): Result => {
   try {
     // @ts-ignore
-    const parentNode: Result = ghostNodes.find(node => node.id === id);
+    const parentNode: Result = ghostNodes.find((node) => node.id === id);
 
     // @ts-ignore
     const parentNodeId: string = parentNode.ancestors()[1].id;
     const isPresentInOldNodes = viewableNodes.some(
-      oldNode => oldNode.id === parentNodeId
+      (oldNode) => oldNode.id === parentNodeId
     );
 
     if (isPresentInOldNodes) {
@@ -39,7 +39,7 @@ export const getFirstDisplayedAncestor = (
     }
   } catch (e) {
     // @ts-ignore
-    return ghostNodes.find(node => node.id === id);
+    return ghostNodes.find((node) => node.id === id);
   }
 };
 
@@ -70,7 +70,10 @@ export class RefreshQueue {
   //                        the next item (if exists) will be executed similary
   //                        to this.
   // }
-  private static queue: Array<{ delayNextCallback: number, callback: any }> = [];
+  private static queue: Array<{
+    delayNextCallback: number;
+    callback: any;
+  }> = [];
 
   // Contains setInterval ID
   private static runner: number;
@@ -93,12 +96,14 @@ export class RefreshQueue {
   // Adds one refresh action to the queue. When safe callback will be
   // triggered
   public static add(duration: number, callback: () => any) {
-    this.queue.push(
-      {
-        delayNextCallback: duration + this.extraDelayBetweenCallbacks,
-        callback: callback
-      });
-    this.log(this.queue.map(_ => _.delayNextCallback), "<-- New task !!!");
+    this.queue.push({
+      delayNextCallback: duration + this.extraDelayBetweenCallbacks,
+      callback: callback,
+    });
+    this.log(
+      this.queue.map((_) => _.delayNextCallback),
+      "<-- New task !!!"
+    );
     if (!this.runner) {
       this.runnerFunction();
       //@ts-ignore
@@ -123,7 +128,7 @@ export class RefreshQueue {
       }
       // ******************** Delay until next callback ********************
       this.queue[0].delayNextCallback -= this.runnerSpeed;
-      this.log(this.queue.map(_ => _.delayNextCallback));
+      this.log(this.queue.map((_) => _.delayNextCallback));
       if (this.queue[0].delayNextCallback <= 0) {
         this.queue.shift();
       }
@@ -132,8 +137,10 @@ export class RefreshQueue {
       clearInterval(this.runner);
       this.runner = 0;
     }
-  };
+  }
 
   // Print to console debug data if this.showQueueLog = true
-  private static log(...msg: any) {if (this.showQueueLog) console.log(...msg)}
+  private static log(...msg: any) {
+    if (this.showQueueLog) console.log(...msg);
+  }
 }

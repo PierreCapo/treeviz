@@ -1,6 +1,6 @@
 // Got to import d3 two times because of an issue with Webpack/Babel with d3.event
-import * as d3 from "d3-selection";
-import customD3 from "./d3";
+import { transform } from "typescript";
+import d3 from "./d3";
 import { ITreeConfig } from "./typings";
 import { getAreaSize } from "./utils";
 
@@ -33,13 +33,8 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     .select("#" + htmlId)
     .append("svg")
     .attr("width", areaWidth)
-    .attr("height", areaHeight)
-    .call(
-      // @ts-ignore
-      customD3
-        .zoom()
-        .on("zoom", () => ZoomG.attr("transform", d3.event.transform))
-    );
+    .attr("height", areaHeight);
+
   const [allowHasPan, allowHasZoom] = getHasPanAndZoom(
     hasPanAndZoom,
     hasPan,
@@ -63,8 +58,15 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
       .on("dblclick.zoom", null);
   }
 
-  const ZoomG = svg.append("g");
-  const MainG = ZoomG.append("g").attr(
+  // Create a G container and move it according to the Zoom Behavior attached to the main <svg> element
+  const ZoomContainer = svg.append("g");
+  const zoom = d3.zoom().on("zoom", (e) => {
+    ZoomContainer.attr("transform", () => e.transform);
+  });
+  // @ts-ignore
+  svg.call(zoom);
+
+  const MainG = ZoomContainer.append("g").attr(
     "transform",
     mainAxisNodeSpacing === "auto"
       ? "translate(0,0)"

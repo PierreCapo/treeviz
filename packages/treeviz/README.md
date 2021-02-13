@@ -12,14 +12,24 @@ This javascript module aims at providing an easy interface in order to represent
 💅 <a href="https://pierrecapo.github.io/treeviz-react">Come play with the Treeviz storybook!</a> 💅
 </p>
 
-## Installation
+## Installation (NPM)
 
 With npm : `npm install treeviz`
 
 and then you can use it with : `import * as Treeviz from 'treeviz';`
 
-Or download this repository and link the dist/index.js file in your page directly : `<script src="./dist/index.js><script>`
-Also, but not recommended, you can use : `<script src="https://rawgit.com/PierreCapo/treeviz/master/dist/index.js"></script>`
+## Installation (Vanilla HTML/JS)
+
+Download the `dist/index.js` from this reporsitory : [Go to dist file](./dist).
+Then add a tool like [requirejs](https://requirejs.org/) to be able to load and use this library :
+
+```HTML
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.js" integrity="sha512-vRqhAr2wsn+/cSsyz80psBbCcqzz2GTuhGk3bq3dAyytz4J/8XwFqMjiAGFBj+WM95lHBJ9cDf87T3P8yMrY7A==" crossorigin="anonymous"></script>
+<script>
+require(["./index.js"], (Treeviz) => { // Change "./index.js" to your local "Treeviz index.js" path
+  // from there you will have access to the Treeviz variable
+}
+```
 
 ## Usage
 

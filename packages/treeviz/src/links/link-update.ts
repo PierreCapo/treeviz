@@ -12,6 +12,7 @@ export const drawLinkUpdate = (
   const linkUpdate = linkEnter.merge(link);
 
   linkUpdate
+    // @ts-ignore
     .transition()
     .duration(settings.duration)
     .attr("d", (d: any) => {
