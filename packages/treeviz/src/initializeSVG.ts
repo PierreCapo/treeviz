@@ -35,6 +35,14 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
     .attr("width", areaWidth)
     .attr("height", areaHeight);
 
+  // Create a G container and move it according to the Zoom Behavior attached to the main <svg> element
+  const ZoomContainer = svg.append("g");
+  const zoom = d3.zoom().on("zoom", (e) => {
+    ZoomContainer.attr("transform", () => e.transform);
+  });
+  // @ts-ignore
+  svg.call(zoom);
+
   const [allowHasPan, allowHasZoom] = getHasPanAndZoom(
     hasPanAndZoom,
     hasPan,
@@ -57,14 +65,6 @@ export const initiliazeSVG = (treeConfig: ITreeConfig) => {
       .on("DOMMouseScroll.zoom", null)
       .on("dblclick.zoom", null);
   }
-
-  // Create a G container and move it according to the Zoom Behavior attached to the main <svg> element
-  const ZoomContainer = svg.append("g");
-  const zoom = d3.zoom().on("zoom", (e) => {
-    ZoomContainer.attr("transform", () => e.transform);
-  });
-  // @ts-ignore
-  svg.call(zoom);
 
   const MainG = ZoomContainer.append("g").attr(
     "transform",
