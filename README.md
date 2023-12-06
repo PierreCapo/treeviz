@@ -108,14 +108,14 @@ The table below lists all the avalaible key that the config object can have
 | `hasZoom`                  | boolean                                       | false                   | Toggle the ability to zoom the tree                                                                                                                                                |
 | `nodeWidth`                | number                                        | 160                     | Width of a node in px                                                                                                                                                              |
 | `nodeHeight`               | number                                        | 100                     | Height of a node in px                                                                                                                                                             |
-| `linkColor`                | function                                      | (nodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
-| `linkWidth`                | function                                      | (nodeData) => 10        | Width of the link                                                                                                                                                                  |
+| `linkColor`                | function                                      | (node: NodeData) => "#ffcc80" | Color of the link                                                                                                                                                                  |
+| `linkWidth`                | function                                      | (node: NodeData) => 10        | Width of the link                                                                                                                                                                  |
 | `linkShape`                | "quadraticBeziers" \| "orthogonal" \| "curve" | "quadraticBeziers"      | Shape of the link                                                                                                                                                                  |
-| `renderNode`               | function                                      | (nodeData) => null      | HTML template for every node                                                                                                                                                       |
+| `renderNode`               | function                                      | (node: NodeData) => null      | HTML template for every node                                                                                                                                                       |
 | `isHorizontal`             | boolean                                       | true                    | Direction of the tree. If true, the tree expands from left to right. If false, it goes from top to bottom                                                                          |
-| `onNodeClick`              | function                                      | (nodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
-| `onNodeMouseEnter`         | function                                      | (nodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
-| `onNodeMouseLeave`         | function                                      | (nodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
+| `onNodeClick`              | function                                      | (node: NodeData) => null      | Function handling the event when someone click on it                                                                                                                               |
+| `onNodeMouseEnter`         | function                                      | (node: NodeData) => null      | Function handling the event when someone hover a node                                                                                                                              |
+| `onNodeMouseLeave`         | function                                      | (node: NodeData) => null      | Function handling the event when the mouse pointer leaves a node                                                                                                                   |
 | `mainAxisNodeSpacing`      | number or "auto"                              | 300                     | Set the distance in pixels between two depths in the tree. If the value is `auto` it will automatically display the tree to fit the size of the container.                         |
 | `secondaryAxisNodeSpacing` | number                                        | 1.25                    | Set the distance between nodes in the same level as a coefficient of node dimensions. Recommended to have the value superior to 1                                                  |
 | `marginTop`                | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
@@ -123,6 +123,15 @@ The table below lists all the avalaible key that the config object can have
 | `marginLeft`               | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginRight`              | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `duration`              | number                                        | 600                    | The duration of the animation transition between layouts                                                                                                                                |
+| `data`              | any                                        |                     | Needed for Typescript projects only to type the `NodeData` argument                                                                                                                                |
+
+And then, we have the `NodeData` type that is passed as callback of some functions:
+`
+type NodeData {
+  data: // the data of each item
+  settings: // the settings object
+}
+`
 
 ## Contributing
 

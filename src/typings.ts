@@ -1,6 +1,12 @@
 import { HierarchyPointNode } from "d3-hierarchy";
 
-export interface ITreeConfig {
+type NodeData<T> = {
+  data: T;
+  settings: ITreeConfig<T>;
+} & ExtendedHierarchyPointNode;
+
+export interface ITreeConfig<T> {
+  data: T[];
   htmlId: string;
   idKey: string;
   relationnalField: string;
@@ -8,13 +14,13 @@ export interface ITreeConfig {
   nodeWidth: number;
   nodeHeight: number;
   mainAxisNodeSpacing: number | "auto";
-  renderNode: (node: any) => string | null;
   linkShape?: "quadraticBeziers" | "curve" | "orthogonal" | "";
-  linkColor: (node: any) => string;
-  linkWidth: (node: any) => number;
-  onNodeClick: (node: any) => void;
-  onNodeMouseEnter: (node: any) => void;
-  onNodeMouseLeave: (node: any) => void;
+  renderNode: (node: NodeData<T>) => string | null;
+  linkColor: (node: NodeData<T>) => string;
+  linkWidth: (node: NodeData<T>) => number;
+  onNodeClick: (node: NodeData<T>) => void;
+  onNodeMouseEnter: (node: NodeData<T>) => void;
+  onNodeMouseLeave: (node: NodeData<T>) => void;
   isHorizontal: boolean;
   hasPan: boolean;
   hasZoom: boolean;

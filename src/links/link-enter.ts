@@ -27,5 +27,9 @@ export const drawLinkEnter = (
       return generateLinkLayout(o, o, settings);
     })
     .attr("fill", "none")
-    .attr("stroke-width", ({ data }: { data: any }) => settings.linkWidth(data))
-    .attr("stroke", ({ data }: { data: any }) => settings.linkColor(data));
+    .attr("stroke-width", ({ data }: { data: any }) =>
+      settings.linkWidth({ data, settings })
+    )
+    .attr("stroke", ({ data }: { data: any }) =>
+      settings.linkColor({ data, settings })
+    );

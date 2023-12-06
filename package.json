@@ -1,6 +1,6 @@
 {
   "name": "treeviz",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "type": "module",
   "description": "Library which aims to represent trees for data visualization",
   "license": "MIT",

@@ -20,5 +20,5 @@
     "noFallthroughCasesInSwitch": true,
     "sourceMap": true,
   },
-  "include": ["src"]
+  "include": ["src", "example/example.ts"]
 }

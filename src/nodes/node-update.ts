@@ -28,8 +28,8 @@ export const drawNodeUpdate = (
     .attr("width", settings.nodeWidth)
     .attr("height", settings.nodeHeight)
     .style("overflow", "visible")
-    .on("click", settings.onNodeClick)
-    .on("mouseenter", settings.onNodeMouseEnter)
-    .on("mouseleave", settings.onNodeMouseLeave)
+    .on("click", (_, d) => settings.onNodeClick({ ...d, settings }))
+    .on("mouseenter", (_, d) => settings.onNodeMouseEnter({ ...d, settings }))
+    .on("mouseleave", (_, d) => settings.onNodeMouseLeave({ ...d, settings }))
     .html((d) => settings.renderNode({ ...d, settings }));
 };

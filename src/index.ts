@@ -15,8 +15,9 @@ export const Treeviz = {
   create,
 };
 
-function create(userSettings: Partial<ITreeConfig>) {
-  const defaultSettings: ITreeConfig = {
+function create<T>(userSettings: Partial<ITreeConfig<T>>) {
+  const defaultSettings: ITreeConfig<any[]> = {
+    data: [],
     htmlId: "",
     idKey: "id",
     relationnalField: "father",
@@ -41,7 +42,9 @@ function create(userSettings: Partial<ITreeConfig>) {
     marginTop: 0,
     secondaryAxisNodeSpacing: 1.25,
   };
-  let settings: ITreeConfig = {
+
+  // @ts-ignore
+  let settings: ITreeConfig<T> = {
     ...defaultSettings,
     ...userSettings,
   };
