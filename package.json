@@ -22,7 +22,6 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "deploy": "tsc && vite build && npm publish",
     "preview": "vite preview"
   },
   "devDependencies": {

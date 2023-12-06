@@ -9,12 +9,19 @@ This javascript module aims at providing an easy interface in order to represent
 
 ## Installation
 
-With npm : `npm install treeviz`
+With npm : 
 
-and then you can use it with : `import {Treeviz} from 'treeviz';`
+```Bash
+npm install treeviz
+```
 
-Or download this repository and link the dist/index.js file in your page directly : `<script src="./dist/index.js><script>`
-Also, but not recommended, you can use : `<script src="https://rawgit.com/PierreCapo/treeviz/master/dist/index.js"></script>`
+and then you can use it with : 
+
+```JavaScript
+import {Treeviz} from 'treeviz';
+```
+
+Or download this zip repository in the Github Release section and link the dist/treeviz.js file in your page directly : `<script src="./dist/index.js><script>`
 
 ## Usage
 
@@ -116,6 +123,14 @@ The table below lists all the avalaible key that the config object can have
 | `marginLeft`               | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `marginRight`              | number                                        | 1.25                    | Set the margin between the SVG element and the tree                                                                                                                                |
 | `duration`              | number                                        | 600                    | The duration of the animation transition between layouts                                                                                                                                |
+
+## Contributing
+
+- Clone the repo.
+- Run `npm install`.
+- Run `npm run dev`, then you can edit the files in the `./src` folder and the `./example/index.html` file.
+- To publish (admin rights), run `npm run build && npm publish`.
+
 ## Credits
 
 This module is based on d3 library, credit to all the contributors of this project.
