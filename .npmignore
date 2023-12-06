@@ -1,0 +1,5 @@
+src/
+example/
+vite.config.ts
+tsconfig.json
+dist/example/
