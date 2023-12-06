@@ -1,9 +1,0 @@
-**/node_modules/**
-**/dist/**
-**/storybook-static/**
-yarn-error.log
-.DS_Store
-example/.cache
-example/dist
-node_modules
-dist

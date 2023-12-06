@@ -1,4 +1,5 @@
-src
-demo
-public
-treeviz-react
+src/
+example/
+vite.config.ts
+tsconfig.json
+dist/example/

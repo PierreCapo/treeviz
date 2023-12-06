@@ -1,31 +1,22 @@
 # Treeviz
 
 [![Known Vulnerabilities](https://snyk.io/test/github/dwyl/hapi-auth-jwt2/badge.svg?targetFile=package.json)](https://snyk.io/test/github/dwyl/hapi-auth-jwt2?targetFile=package.json)
-![David](https://img.shields.io/david/PierreCapo/treeviz)
-[![license](https://badgen.now.sh/badge/license/BSD)](./LICENSE)
+[![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 
 This javascript module aims at providing an easy interface in order to represent tree diagrams on screen with the ability to handle dynamic data flows. The data format must be JSON.
 
 ![](https://i.imgur.com/vyB2Erg.gif)
 
-<p align="center">
-💅 <a href="https://pierrecapo.github.io/treeviz-react">Come play with the Treeviz storybook!</a> 💅
-</p>
-
 ## Installation
 
 With npm : `npm install treeviz`
 
-and then you can use it with : `import * as Treeviz from 'treeviz';`
+and then you can use it with : `import {Treeviz} from 'treeviz';`
 
 Or download this repository and link the dist/index.js file in your page directly : `<script src="./dist/index.js><script>`
 Also, but not recommended, you can use : `<script src="https://rawgit.com/PierreCapo/treeviz/master/dist/index.js"></script>`
 
 ## Usage
-
-#### React
-
-Check the treeviz wrapper for react: [treeviz-react](./treeviz-react)
 
 #### Vanilla JavaScript
 
@@ -131,4 +122,4 @@ This module is based on d3 library, credit to all the contributors of this proje
 
 ## License
 
-BSD
+MIT
